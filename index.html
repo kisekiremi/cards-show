@@ -19,19 +19,7 @@
     <!--<section></section>-->
 
 <ul id="card-container">
-    <li class="cards" :class="{neww: card.isNew, dead: card.isDead, r: true}"  v-for="card in list" v-on:mousedown.prevent >
-        <em></em>
-        <img :src="card.img" alt="">
-        <div class="info">
-            <h4>{{ card.name }}</h4>
-            <p>{{ card.des }}</p>
-        </div>
-        <div class="property">
-            <i class="attack">{{ card.attack }}</i>
-            <i class="defense"><span>{{ card.health }}</span></i> <!--|<span>{{ card.defense }}</span>-->
-        </div>
-        <div class="backface"></div>
-    </li>
+    <card-c v-for="card in list" :card="card"></card-c>
 </ul>
 
 <script src="js/vue.js"></script>
@@ -40,7 +28,6 @@
 <script src="js/tool.js"></script>
 <script src="js/cardsMove.js"></script>
 <!--<script src="js/cards.js"></script>-->
-<script src="https://unpkg.com/tween.js@16.3.4"></script>
 <script>
     class Card {
         constructor(obj) {
@@ -68,13 +55,32 @@
     }
     var aaa = [];
     aaa.push(new Card(cards[0]));
+    aaa.push(new Card(cards[1]));
+    var cardComponents = {
+        props: ['card'],
+        template: `
+        <li class="cards" :class="{neww: card.isNew, dead: card.isDead, r: true}"  v-on:mousedown.prevent >
+            <em></em>
+            <img :src="card.img" alt="">
+            <div class="info">
+                <h4>{{ card.name }}</h4>
+                <p>{{ card.des }}</p>
+            </div>
+            <div class="property">
+                <i class="attack">{{ card.attack }}</i>
+                <i class="defense"><span>{{ card.health }}</span></i> <!--|<span>{{ card.defense }}</span>-->
+            </div>
+            <div class="backface"></div>
+        </li>
+        `
+    }
     new Vue({
         el: '#card-container',
         data: {
             list: aaa
         },
-        methods: {
-
+        components: {
+            'card-c': cardComponents
         }
     })
 
