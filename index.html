@@ -19,27 +19,64 @@
     <!--<section></section>-->
 
 <ul id="card-container">
-    <!--<li class="cards" :class="{neww: card.isNew, dead: card.isDead, r: true}"  v-for="card in list" v-on:mousedown.prevent >-->
-        <!--<em></em>-->
-        <!--<img :src="card.img" alt="">-->
-        <!--<div class="info">-->
-            <!--<h4>{{ card.name }}</h4>-->
-            <!--<p>{{ card.des }}</p>-->
-        <!--</div>-->
-        <!--<div class="property">-->
-            <!--<i class="attack">{{ card.attack }}</i>-->
-            <!--<i class="defense"><span>{{ card.health }}</span></i> &lt;!&ndash;|<span>{{ card.defense }}</span>&ndash;&gt;-->
-        <!--</div>-->
-        <!--<div class="backface"></div>-->
-    <!--</li>-->
+    <li class="cards" :class="{neww: card.isNew, dead: card.isDead, r: true}"  v-for="card in list" v-on:mousedown.prevent >
+        <em></em>
+        <img :src="card.img" alt="">
+        <div class="info">
+            <h4>{{ card.name }}</h4>
+            <p>{{ card.des }}</p>
+        </div>
+        <div class="property">
+            <i class="attack">{{ card.attack }}</i>
+            <i class="defense"><span>{{ card.health }}</span></i> <!--|<span>{{ card.defense }}</span>-->
+        </div>
+        <div class="backface"></div>
+    </li>
 </ul>
 
-<!--<script src="js/vue.js"></script>-->
+<script src="js/vue.js"></script>
 <script src="js/cardsData.js"></script>
 <!--<script src="js/test.js"></script>-->
 <script src="js/tool.js"></script>
 <script src="js/cardsMove.js"></script>
-<script src="js/cards.js"></script>
+<!--<script src="js/cards.js"></script>-->
+<script>
+    class Card {
+        constructor(obj) {
+            for (var k in obj) {
+                this[k]= obj[k];
+            }
+            this.isDead = false;
+            this.isNew = false;
+        }
+        say() {
+            console.log('我是' + this.name + ',介绍:' + this.des);
+        }
+        attackP(obj) {
+            console.log(obj.name + '受到' + this.name + '的攻击');
+            var randomSeed = Math.random();
+            obj.health = obj.health - (this.attack * (randomSeed < this.CRI ? this.CS : 1)) * (1 - (obj.defense/(400+obj.defense)));
+            obj.health = Math.round(obj.health);
+            if (obj.health <= 0) {
+                obj.health = 0;
+                obj.isDead = true;
+            }
+            return (randomSeed < this.CRI ? '暴击！' : 'ok');
+        }
+    }
+    var aaa = [];
+    aaa.push(new Card(cards[0]));
+    aaa.push(new Card(cards[1]));
+    new Vue({
+        el: '#card-container',
+        data: {
+            list: aaa
+        },
+        methods: {
 
+        }
+    })
+
+</script>
 </body>
 </html>
