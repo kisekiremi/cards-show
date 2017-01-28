@@ -40,6 +40,7 @@
 <script src="js/tool.js"></script>
 <script src="js/cardsMove.js"></script>
 <!--<script src="js/cards.js"></script>-->
+<script src="https://unpkg.com/tween.js@16.3.4"></script>
 <script>
     class Card {
         constructor(obj) {
@@ -54,9 +55,10 @@
         }
         attackP(obj) {
             console.log(obj.name + '受到' + this.name + '的攻击');
-            var randomSeed = Math.random();
-            obj.health = obj.health - (this.attack * (randomSeed < this.CRI ? this.CS : 1)) * (1 - (obj.defense/(400+obj.defense)));
-            obj.health = Math.round(obj.health);
+            let randomSeed = Math.random();
+            let newHealth = obj.health - (this.attack * (randomSeed < this.CRI ? this.CS : 1)) * (1 - (obj.defense/(400+obj.defense)));
+
+            obj.health = Math.round(newHealth);
             if (obj.health <= 0) {
                 obj.health = 0;
                 obj.isDead = true;
@@ -66,7 +68,6 @@
     }
     var aaa = [];
     aaa.push(new Card(cards[0]));
-    aaa.push(new Card(cards[1]));
     new Vue({
         el: '#card-container',
         data: {
