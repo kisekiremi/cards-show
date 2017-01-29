@@ -37,9 +37,6 @@
             this.isDead = false;
             this.isNew = false;
         }
-        say() {
-            console.log('我是' + this.name + ',介绍:' + this.des);
-        }
         attackP(obj) {
             console.log(obj.name + '受到' + this.name + '的攻击');
             let randomSeed = Math.random();
