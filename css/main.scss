@@ -3,6 +3,7 @@ html {
   width: 100%;
   height: 100%;
 }
+
 body {
   display: flex;
   width: 100%;
@@ -11,6 +12,7 @@ body {
   background-size: cover;
   //filter: ;
 }
+
 nav {
   position: relative;
   z-index: 300;
@@ -38,20 +40,35 @@ nav {
     background: url('../img/common/nav-bg5.png') no-repeat;
   }
 }
+
 section {
   flex: 4;
   background-color: transparent;
   transition: 1s;
 }
+
 @keyframes nav-active-out {
-  0%{transform: scale(1);}
-  20%{transform: scale(1.3);}
-  100%{transform: scale(1) translateX(-400px);}
+  0% {
+    transform: scale(1);
+  }
+  20% {
+    transform: scale(1.3);
+  }
+  100% {
+    transform: scale(1) translateX(-400px);
+  }
 }
+
 @keyframes nav-out {
-  0%{transform: scale(1);}
-  20%{transform: scale(1.1);}
-  100%{transform: translateX(-400px);}
+  0% {
+    transform: scale(1);
+  }
+  20% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: translateX(-400px);
+  }
 }
 
 #bg-canvas {
@@ -63,6 +80,126 @@ section {
 
 }
 
+//加载动画
+.loader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #e5ffce;
+  z-index: 9999;
+  .loading {
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+  }
+  p {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin: auto;
+    transform: translate(-22px, 70px);
+  }
+}
+
+.loading span {
+  position: absolute;
+  display: inline-block;
+  width: 30px;
+  height: 10px;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  background: #1bc8f0;
+  animation: loading 1.04s linear infinite;
+  opacity: .2;
+}
+
+@keyframes loading {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.2;
+  }
+}
+
+.loading span:nth-child(1) {
+  left: 0;
+  top: 50%;
+  margin-top: -5px;
+  animation-delay: 0s;
+}
+
+.loading span:nth-child(2) {
+  left: 10px;
+  top: 20px;
+  transform: rotate(45deg);
+  animation-delay: .13s;
+}
+
+.loading span:nth-child(3) {
+  left: 50%;
+  top: 10px;
+  margin-left: -15px;
+  transform: rotate(90deg);
+  animation-delay: .26s;
+}
+
+.loading span:nth-child(4) {
+  top: 20px;
+  right: 10px;
+  transform: rotate(135deg);
+  animation-delay: .39s;
+}
+
+.loading span:nth-child(5) {
+  right: 0;
+  top: 50%;
+  margin-top: -5px;
+  transform: rotate(180deg);
+  animation-delay: .52s;
+}
+
+.loading span:nth-child(6) {
+  right: 10px;
+  bottom: 20px;
+  transform: rotate(225deg);
+  animation-delay: .65s;
+}
+
+.loading span:nth-child(7) {
+  bottom: 10px;
+  left: 50%;
+  margin-left: -15px;
+  transform: rotate(270deg);
+  animation-delay: .78s;
+}
+
+.loading span:nth-child(8) {
+  bottom: 20px;
+  left: 10px;
+  transform: rotate(315deg);
+  animation-delay: .91s;
+}
+
+.fade-out-animation {
+  animation: fadeOut .7s;
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
 
 //130 * 220
 #card-container {
@@ -73,6 +210,7 @@ section {
   transform-style: preserve-3d;
   perspective: 6000px;
 }
+
 .cards {
   position: absolute;
   top: 0;
@@ -120,21 +258,27 @@ section {
     font-size: 14px;
   }
 }
+
 .cards.front {
   transform: rotateY(0deg);
 }
+
 .cards.back {
   transform: rotateY(180deg);
 }
+
 .cards.r {
   box-shadow: 0 0px 2px 1px blue, inset 0 0 2px 1px gray;
 }
+
 .cards.sr {
   box-shadow: 0 0px 3px 1px #e94cff, inset 0 0 2px 1px gray;
 }
+
 .cards.ssr {
   box-shadow: 0 0px 4px 3px #fec802, inset 0 0 2px 1px gray;
 }
+
 .property {
   position: absolute;
   bottom: 0;
@@ -167,9 +311,11 @@ section {
     background: url("../img/icon/defense.svg") no-repeat;
   }
 }
+
 .cards.show {
   animation: cards-bs-r-bling 4s infinite;
 }
+
 .cards.neww em {
   position: absolute;
   top: -8px;
@@ -181,6 +327,7 @@ section {
   background-size: contain;
   z-index: 99;
 }
+
 .cards.dead em {
   position: absolute;
   top: 0;
@@ -192,8 +339,15 @@ section {
   background-size: contain;
   z-index: 99;
 }
+
 @keyframes cards-box-shadow-bling {
-  0%{box-shadow: 0 0px 22px 2px blue, inset 0 0 2px 1px gray;}
-  50%{box-shadow: 0 0px 2px 1px blue, inset 0 0 2px 1px gray;}
-  100%{box-shadow: 0 0px 22px 2px blue, inset 0 0 2px 1px gray;}
+  0% {
+    box-shadow: 0 0px 22px 2px blue, inset 0 0 2px 1px gray;
+  }
+  50% {
+    box-shadow: 0 0px 2px 1px blue, inset 0 0 2px 1px gray;
+  }
+  100% {
+    box-shadow: 0 0px 22px 2px blue, inset 0 0 2px 1px gray;
+  }
 }

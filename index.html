@@ -9,78 +9,29 @@
     <link rel="stylesheet" href="css/main.css">
 </head>
 <body>
-    <!--<nav>-->
-        <!--<a href="javascript:;"></a>-->
-        <!--<a href="javascript:;"></a>-->
-        <!--<a href="javascript:;"></a>-->
-        <!--<a href="javascript:;"></a>-->
-        <!--<a href="javascript:;"></a>-->
-    <!--</nav>-->
-    <!--<section></section>-->
-
-<ul id="card-container">
-    <card-c v-for="card in list" :card="card"></card-c>
-</ul>
+    <div class="loader">
+        <div class="loading">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <p>加载中</p>
+    </div>
+    <ul id="card-container">
+        <card-c v-for="card in list" :card="card"></card-c>
+    </ul>
 
 <script src="js/vue.js"></script>
 <script src="js/cardsData.js"></script>
 <!--<script src="js/test.js"></script>-->
 <script src="js/tool.js"></script>
 <script src="js/cardsMove.js"></script>
-<!--<script src="js/cards.js"></script>-->
-<script>
-    class Card {
-        constructor(obj) {
-            for (var k in obj) {
-                this[k]= obj[k];
-            }
-            this.isDead = false;
-            this.isNew = false;
-        }
-        attackP(obj) {
-            console.log(obj.name + '受到' + this.name + '的攻击');
-            let randomSeed = Math.random();
-            let newHealth = obj.health - (this.attack * (randomSeed < this.CRI ? this.CS : 1)) * (1 - (obj.defense/(400+obj.defense)));
+<script src="js/cards.js"></script>
 
-            obj.health = Math.round(newHealth);
-            if (obj.health <= 0) {
-                obj.health = 0;
-                obj.isDead = true;
-            }
-            return (randomSeed < this.CRI ? '暴击！' : 'ok');
-        }
-    }
-    var aaa = [];
-    aaa.push(new Card(cards[0]));
-    aaa.push(new Card(cards[1]));
-    var cardComponents = {
-        props: ['card'],
-        template: `
-        <li class="cards" :class="{neww: card.isNew, dead: card.isDead, r: true}"  v-on:mousedown.prevent >
-            <em></em>
-            <img :src="card.img" alt="">
-            <div class="info">
-                <h4>{{ card.name }}</h4>
-                <p>{{ card.des }}</p>
-            </div>
-            <div class="property">
-                <i class="attack">{{ card.attack }}</i>
-                <i class="defense"><span>{{ card.health }}</span></i> <!--|<span>{{ card.defense }}</span>-->
-            </div>
-            <div class="backface"></div>
-        </li>
-        `
-    }
-    new Vue({
-        el: '#card-container',
-        data: {
-            list: aaa
-        },
-        components: {
-            'card-c': cardComponents
-        }
-    })
-
-</script>
 </body>
 </html>
