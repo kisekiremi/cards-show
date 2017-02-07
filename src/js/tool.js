@@ -31,8 +31,8 @@ var mt = mt || {};
 mt = {
     /**
      @description: 添加类名 classList
-     @augments:	obj		需要修改的对象
-     name	需要添加的类名
+     @augments:	{obj		需要修改的对象}
+     			{name	需要添加的类名}
 
      */
 	addCN: function(obj, cName) {
@@ -51,7 +51,7 @@ mt = {
     /**
      @description: 删除类名
      @augments:	obj		需要修改的对象
-     name	需要删除的类名
+     			name	需要删除的类名
 
      */
 	removeCN: function(obj, cName) {
@@ -135,4 +135,69 @@ mt = {
 			ev.preventDefault();
 		}
 	}
+};
+function getAnimationend() {
+    let div = document.createElement('div'),
+        style = div.style,
+        animationNames = ['animation', 'WebkitAnimation', 'OAnimation', 'msAnimation', 'MozAnimation'],
+        animationName = (() => {
+            for (let key of animationNames) {
+                if (style[key] !== undefined) return key;
+            }
+            return false;
+        })(),
+        aniEndName = {
+            animation: 'animationend',
+            WebkitAnimation: 'webkitAnimationEnd',
+            OAnimation: 'oAnimationEnd',
+            msAnimation: 'MSAnimationEnd',
+            MozAnimation: 'mozAnimationEnd'
+        }[animationName];
+    div = style = animationNames = animationName = null;
+    return aniEndName;
 }
+function getTransitionend() {
+    let div = document.createElement('div'),
+        style = div.style,
+        transitionNames = ['transition', 'WebkitTransition', 'OTransition', 'msTransition', 'MozTransition'],
+        transitionName = (() => {
+            for (let key of transitionNames) {
+                if (style[key] !== undefined) return key;
+            }
+            return false;
+        })(),
+        traEndName = {
+            transition: 'transitionend',
+            WebkitTransition: 'webkitTransitionEnd',
+            OTransition: 'oTransitionEnd',
+            msTransition: 'MSTransitionEnd',
+            MozTransition: 'mozTransitionEnd'
+        }[transitionName];
+    div = style = transitionNames = transitionName = null;
+    return traEndName;
+}
+var objCtrl = {
+    fadeOut(obj) {
+        obj.classList.add('fade-out-animation');
+        let callback = () => {
+            obj.classList.remove('fade-out-animation');
+            obj.style.display = 'none';
+            obj.removeEventListener(getAnimationend(), callback);
+            return;
+        };
+        obj.addEventListener(getAnimationend(), callback);
+        return this;
+    },
+    fadeIn(obj) {
+        obj.style.display = 'block';
+        obj.classList.add('fade-in-animation');
+        let callback = () => {
+            obj.classList.remove('fade-in-animation');
+            obj.style.display = 'block';
+            obj.removeEventListener(getAnimationend(), callback);
+            return;
+        };
+        obj.addEventListener(getAnimationend(), callback);
+        return this;
+    }
+};

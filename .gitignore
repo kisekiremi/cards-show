@@ -46,3 +46,6 @@ Network Trash Folder
 Temporary Items
 .apdisk
 js/OOversion.js
+.babel
+node_modules/
+package.json
