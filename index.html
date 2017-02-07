@@ -25,7 +25,7 @@
     </div>
     <nav>
         <ul class="main-nav">
-            <li><a href="javascript:;" class="active"><i class="fa fa-home"></i>首页</a></li>
+            <li class="active"><a href="javascript:;"><i class="fa fa-home"></i>首页</a></li>
             <li><a href="javascript:;"><i class="fa fa-rocket"></i>卡牌展示1</a></li>
             <li><a href="javascript:;"><i class="fa fa-support"></i>卡牌展示2</a></li>
             <li><a href="javascript:;"><i class="fa fa-plane"></i>卡牌展示3</a></li>
@@ -35,15 +35,26 @@
     <a href="javascript:;" id="return-main-nav"><i class="fa fa-arrow-left"></i></a>
     <section>
         <ul id="card-container">
-            <card-c v-for="card in list" :card="card"></card-c>
+            <li class="cards" :class="{neww: card.isNew, dead: card.isDead}" v-for="card in list"  v-on:mousedown.prevent >
+                <em></em>
+                <img :src="card.img" alt="">
+                <div class="info">
+                    <h4>{{ card.name }}</h4>
+                    <p v-show="stat == 3">{{ card.des }}</p>
+                </div>
+                <div class="property" v-show="stat == 3">
+                    <i class="attack">{{ card.attack }}</i>
+                    <i class="defense"><span>{{ card.health }}</span></i>
+                </div>
+                <div class="backface" v-show="stat == 3"></div>
+            </li>
         </ul>
     </section>
-
-
 <script src="./src/js/vue.js"></script>
 <script src="./src/js/cardsData.js"></script>
 <!--<script src="./build/js/test.js"></script>-->
 <script src="./src/js/tool.js"></script>
+<!--<script src="./src/js/move-0.3.4.js"></script>-->
 <script src="./src/js/cardsMove.js"></script>
 <script src="./src/js/cards.js"></script>
 

@@ -186,7 +186,7 @@ var objCtrl = {
             return;
         };
         obj.addEventListener(getAnimationend(), callback);
-        return this;
+        return obj;
     },
     fadeIn(obj) {
         obj.style.display = 'block';
@@ -198,6 +198,35 @@ var objCtrl = {
             return;
         };
         obj.addEventListener(getAnimationend(), callback);
-        return this;
+        return obj;
+    },
+    moveOut(obj) {
+        obj.style.left = - window.innerWidth/5 + 'px';
+        obj.style.flex = 0;
+        obj.classList.add('fade-out-animation');
+        let callback = () => {
+            obj.classList.add('hidden');
+            obj.classList.remove('fade-out-animation');
+            obj.style.left = - window.innerWidth/5 + 'px';
+            obj.style.flex = 0;
+            obj.removeEventListener(getAnimationend(), callback);
+            return;
+        };
+        obj.addEventListener(getAnimationend(), callback);
+        return obj;
+    },
+    moveIn(obj) {
+        obj.classList.remove('hidden');
+        obj.classList.add('fade-in-animation');
+        let callback = () => {
+            obj.classList.remove('fade-in-animation');
+            obj.style.left = 0;
+            obj.style.display = 'flex';
+            obj.style.flex = 1;
+            obj.removeEventListener(getAnimationend(), callback);
+            return;
+        };
+        obj.addEventListener(getAnimationend(), callback);
+        return obj;
     }
 };

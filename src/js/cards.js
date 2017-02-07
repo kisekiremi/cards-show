@@ -2,8 +2,8 @@
  * Created by Moudi on 2017/1/6.
  */
 "use strict";
-var cardC = $('#card-container'),
-    cs = $('li', cardC);
+var $cardC = $('#card-container'),
+    $cs = $('li', $cardC);
 class Card {
     constructor(obj) {
         for (var k in obj) {
@@ -27,62 +27,59 @@ class Card {
 }
 
 //全局变量区
-let testC = [];
+let vm = null,
+    testC = [];
 
 init();
 function init() {
     initVue();
     initEvent();
-    setTimeout(function() { //暂时模拟
+    // setTimeout(function() { //暂时模拟
         objCtrl.fadeOut($('.loader')[0]);
-    }, 1000)
+    // }, 1000)
 }
 function initVue() {
-    testC.push(new Card(cardsData[0]));
-    testC.push(new Card(cardsData[1]));
-    testC.push(new Card(cardsData[2]));
-    testC.push(new Card(cardsData[3]));
-    testC.push(new Card(cardsData[4]));
-    testC.push(new Card(cardsData[5]));
-    testC.push(new Card(cardsData[6]));
-    testC.push(new Card(cardsData[7]));
-    testC.push(new Card(cardsData[0]));
-    testC.push(new Card(cardsData[1]));
-    testC.push(new Card(cardsData[2]));
-    testC.push(new Card(cardsData[3]));
-    testC.push(new Card(cardsData[4]));
-    testC.push(new Card(cardsData[5]));
-    testC.push(new Card(cardsData[2]));
-    testC.push(new Card(cardsData[3]));
-    testC.push(new Card(cardsData[4]));
-    let cardComponents = {
-        props: ['card'],
-        template:
-            `
-            <li class="cards" :class="{neww: card.isNew, dead: card.isDead}"  v-on:mousedown.prevent >
-                <em></em>
-                <img :src="card.img" alt="">
-                <div class="info">
-                    <h4>{{ card.name }}</h4>
-                    <!--<p>{{ card.des }}</p>-->
-                </div>
-                <div class="property">
-                    <i class="attack">{{ card.attack }}</i>
-                    <i class="defense"><span>{{ card.health }}</span></i>
-                </div>
-                <div class="backface"></div>
-            </li>
-            `
-    };
-    new Vue({
+    for (let i = 0; i < 17; i++) {
+        testC.push(new Card(cardsData[Math.floor(Math.random()*10)]));
+    }
+    vm = new Vue({
         el: '#card-container',
         data: {
-            list: testC
-        },
-        components: {
-            'card-c': cardComponents
+            list: testC,
+            stat: 0
         }
     });
 }
 function initEvent() {
+    let $goBack = $('#return-main-nav'),
+        $nav = $('nav')[0],
+        $mainNav = $('.main-nav')[0],
+        $lis = $('li', $mainNav);
+    for (let i = 0; i < $lis.length; i++) {
+        $lis[i].index = i;
+    }
+    $mainNav.addEventListener('click', function (ev) {
+        if (ev.target.nodeName == 'A') {
+            for (let i = 0; i < $lis.length; i++) {
+                $lis[i].classList.remove('active');
+            }
+            ev.target.parentNode.classList.add('active');
+            vm.stat = ev.target.parentNode.index;
+            objCtrl.moveOut($nav);
+            objCtrl.fadeIn($goBack);
+        }
+    });
+    $goBack.onclick = function () {
+        objCtrl.fadeOut(this);
+        objCtrl.moveIn($nav);
+    };
+    $cardC.addEventListener('click', function (ev) {
+        ev.stopPropagation();
+        if (isSpread) {
+            cm.reset();
+        }
+        else {
+            cm.transform2d(cm.right);
+        }
+    }, false)
 }

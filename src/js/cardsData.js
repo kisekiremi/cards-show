@@ -109,7 +109,7 @@ let cardsData = [
     {
         id: 8,
         name: '缇斯特',
-        img: './img/ssr-1.jpg',
+        img: './src/img/ssr-1.jpg',
         des: '掌管时间的妖精抚养的少女，性格保守，但在敞开心怀的人面前会欢笑哭泣,显露表情丰富的少女一面。',
         rarity: 'ssr', // 1--r   2--sr   3--ssr
         attack: 0,
@@ -122,7 +122,7 @@ let cardsData = [
     {
         id: 8,
         name: '缇斯特',
-        img: './img/ssr-1.jpg',
+        img: './src/img/ssr-1.jpg',
         des: '掌管时间的妖精抚养的少女，性格保守，但在敞开心怀的人面前会欢笑哭泣,显露表情丰富的少女一面。',
         rarity: 'ssr', // 1--r   2--sr   3--ssr
         attack: 0,
@@ -135,7 +135,7 @@ let cardsData = [
     {
         id: 8,
         name: '缇斯特',
-        img: './img/ssr-1.jpg',
+        img: './src/img/ssr-1.jpg',
         des: '掌管时间的妖精抚养的少女，性格保守，但在敞开心怀的人面前会欢笑哭泣,显露表情丰富的少女一面。',
         rarity: 'ssr', // 1--r   2--sr   3--ssr
         attack: 0,
@@ -148,7 +148,7 @@ let cardsData = [
     {
         id: 8,
         name: '缇斯特',
-        img: './img/ssr-1.jpg',
+        img: './src/img/ssr-1.jpg',
         des: '掌管时间的妖精抚养的少女，性格保守，但在敞开心怀的人面前会欢笑哭泣,显露表情丰富的少女一面。',
         rarity: 'ssr', // 1--r   2--sr   3--ssr
         attack: 0,
@@ -161,7 +161,7 @@ let cardsData = [
     {
         id: 8,
         name: '缇斯特',
-        img: './img/ssr-1.jpg',
+        img: './src/img/ssr-1.jpg',
         des: '掌管时间的妖精抚养的少女，性格保守，但在敞开心怀的人面前会欢笑哭泣,显露表情丰富的少女一面。',
         rarity: 'ssr', // 1--r   2--sr   3--ssr
         attack: 0,
@@ -174,7 +174,7 @@ let cardsData = [
     {
         id: 8,
         name: '缇斯特',
-        img: './img/ssr-1.jpg',
+        img: './src/img/ssr-1.jpg',
         des: '掌管时间的妖精抚养的少女，性格保守，但在敞开心怀的人面前会欢笑哭泣,显露表情丰富的少女一面。',
         rarity: 'ssr', // 1--r   2--sr   3--ssr
         attack: 0,
@@ -187,7 +187,7 @@ let cardsData = [
     {
         id: 8,
         name: '缇斯特',
-        img: './img/ssr-1.jpg',
+        img: './src/img/ssr-1.jpg',
         des: '掌管时间的妖精抚养的少女，性格保守，但在敞开心怀的人面前会欢笑哭泣,显露表情丰富的少女一面。',
         rarity: 'ssr', // 1--r   2--sr   3--ssr
         attack: 0,
@@ -200,7 +200,7 @@ let cardsData = [
     {
         id: 8,
         name: '缇斯特',
-        img: './img/ssr-1.jpg',
+        img: './src/img/ssr-1.jpg',
         des: '掌管时间的妖精抚养的少女，性格保守，但在敞开心怀的人面前会欢笑哭泣,显露表情丰富的少女一面。',
         rarity: 'ssr', // 1--r   2--sr   3--ssr
         attack: 0,
@@ -213,7 +213,7 @@ let cardsData = [
     {
         id: 8,
         name: '缇斯特',
-        img: './img/ssr-1.jpg',
+        img: './src/img/ssr-1.jpg',
         des: '掌管时间的妖精抚养的少女，性格保守，但在敞开心怀的人面前会欢笑哭泣,显露表情丰富的少女一面。',
         rarity: 'ssr', // 1--r   2--sr   3--ssr
         attack: 0,
@@ -226,7 +226,7 @@ let cardsData = [
     {
         id: 8,
         name: '缇斯特',
-        img: './img/ssr-1.jpg',
+        img: './src/img/ssr-1.jpg',
         des: '掌管时间的妖精抚养的少女，性格保守，但在敞开心怀的人面前会欢笑哭泣,显露表情丰富的少女一面。',
         rarity: 'ssr', // 1--r   2--sr   3--ssr
         attack: 0,

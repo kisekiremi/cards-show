@@ -11,18 +11,24 @@ body {
   height: 100%;
   background: url('../img/common/main-bg.jpg') no-repeat;
   background-size: cover;
+  overflow: hidden;
   //filter: ;
 }
 
 nav {
   position: relative;
+  left: 0;
   z-index: 300;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
   flex: 1;
-  transition: 1s;
+  transition: .7s;
   background-color: rgb(95, 109, 126);
+  overflow: hidden;
+}
+nav.hidden {
+  opacity: 0;
 }
 #return-main-nav {
   display: none;
@@ -35,8 +41,10 @@ nav {
   border-radius: 50%;
   border: 1px solid #000;
   text-align: center;
+  background-color: #fff;
 }
 .main-nav {
+  white-space: nowrap;
   i {
     width: 16px;
     height: 16px;
@@ -51,7 +59,7 @@ nav {
   a:hover {
     background-color: rgb(91, 104, 120);
   }
-  a.active {
+  li.active a {
     background-color: rgb(73, 84, 97);
   }
 }
@@ -179,10 +187,10 @@ section {
 }
 
 .fade-in-animation {
-  animation: fadeIn .7s;
+  animation: fadeIn .7s ;
 }
 .fade-out-animation {
-  animation: fadeOut .7s;
+  animation: fadeOut .7s forwards;
 }
 @keyframes fadeIn {
   from {
@@ -210,8 +218,9 @@ section {
   transform-style: preserve-3d;
   perspective: 6000px;
 }
-#asoidfgj {
-
+.c1 #card-container {
+  width: 130px;
+  height: 220px;
 }
 .cards {
   position: absolute;
