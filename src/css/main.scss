@@ -251,19 +251,69 @@ section {
   }
 }
 
-
 //130 * 220
 #card-container {
   position: relative;
   width: 130px;
   height: 220px;
-  margin: 80px auto;
-  transform-style: preserve-3d;
-  perspective: 6000px;
+  margin: 80px auto 0;
+  //transform-style: preserve-3d;
+  //perspective: 6000px;
 }
-.c1 #card-container {
+#section1 #card-container {
   width: 130px;
   height: 220px;
+}
+#game-table-1 {
+  display: none;
+}
+#gt {
+  position: relative;
+  width: 50%;
+  height: 80%;
+  margin: 80px auto 0;
+  //border: 1px solid red;
+  li {
+    position: absolute;
+    left: 0;
+    top: 0;
+    display: block;
+    width: 90px;
+    height: 120px;
+    transition: .7s;
+    backface-visibility: hidden;
+    transform-style: preserve-3d;
+    border-radius: 8px;
+    overflow: hidden;
+    z-index: 99;
+    .front {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      transition: .7s;
+      background: url('../img/game/1.png') no-repeat center;
+      background-size: 105% 105%;
+      transform: rotateY(180deg);
+      z-index: 2;
+    }
+    .back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      transition: .7s;
+      background: url('../img/game/back.png') no-repeat;
+      background-size: 100% 100%;
+      z-index: 4;
+    }
+    &.flipped .front {
+      transform: rotateY(0deg);
+      z-index: 4;
+    }
+    &.flipped .back {
+      transform: rotateY(180deg);
+      z-index: 2;
+    }
+  }
 }
 .cards {
   position: absolute;
@@ -319,7 +369,7 @@ section {
 }
 
 .cards.back {
-  transform: rotateY(180deg);
+  transform: rotateY(180deg) translateZ(1px);
 }
 
 .cards.r {

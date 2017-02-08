@@ -6,6 +6,12 @@ var $cardC = $('#card-container'),
     $cs = $('li', $cardC);
 class Card {
     constructor(obj) {
+         
+    }
+}
+
+class GameCard {
+    constructor(obj) {
         for (var k in obj) {
             this[k] = obj[k];
         }
@@ -40,7 +46,7 @@ function init() {
 }
 function initVue() {
     for (let i = 0; i < 17; i++) {
-        testC.push(new Card(cardsData[Math.floor(Math.random()*10)]));
+        testC.push(new GameCard(cardsData[Math.floor(Math.random()*10)]));
     }
     vm = new Vue({
         el: '#card-container',
@@ -59,12 +65,34 @@ function initVue() {
                 setTimeout(function () {
                     $cardC = $('#card-container');
                     $cs = $('li', $cardC);
+                    if ($cs.length == 0) return;
                     objCtrl.addCard($cs[$cs.length - 1]);
                 }, 0)
             },
             stat() {
-                testC.splice(0, testC.length); //vue.js 中不能通过 = [] 更新视图 要使用这个方法清空
-                aaaaa();
+                //TODO: 完成stat值切换
+                switch(this.stat) {
+                    case 1:
+                        objCtrl.fadeOut($('#game-table-1'), function () {
+                            $('#section1').style.display = 'flex';
+                        });
+                        cm.reset(function () {
+                            testC.splice(0, testC.length);//vue.js 中不能通过 = [] 更新视图 要使用这个方法清空
+                            for (let i = 0; i < 10; i++) {
+                                setTimeout(function () {
+                                    testC.push(new GameCard(cardsData[Math.floor(Math.random()*11)]));
+                                }, i * 100)
+                            }
+                        });
+                        break;
+                    case 4:
+                        objCtrl.fadeOut($('#section1'), function () {
+                            $('#game-table-1').style.display = 'flex';
+                        });
+                        initCardGame();
+                        break;
+                }
+
             }
         }
     });
@@ -93,11 +121,75 @@ function initEvent() {
         objCtrl.moveIn($nav);
     };
 }
+function initCardGame() {
+    flipGame.init();
+}
+var flipCount = {
+    count: 0,
+    obj: []
+};
+var flipGame = {
+    MAX_CARD: 18,
+    _imgArr: [],
+    init() {
+        this._setArr();
+        let $gt = $('#gt');
+        for (let i = 0; i < this.MAX_CARD; i++) {
+            let li = document.createElement('li');
+            let frontD = document.createElement('div');
+            let backD = document.createElement('div');
+            frontD.className = 'front';
+            frontD.style.backgroundImage = 'url(./src/img/game/' + this._imgArr[i] + '.png)';
+            backD.className = 'back';
+            li.appendChild(frontD);
+            li.appendChild(backD);
+            li.style.top = Math.floor(i/6) * 140 + 'px';
+            li.style.left = i%6 * 100 + 'px';
+            li.gameData = this._imgArr[i];
+            li.onclick = function() {
+                if (flipCount.count < 2) {
+                    this.classList.add('flipped');
+                    flipCount.count++;
+                    flipCount.obj.push(this);
+                }
+                else if (flipCount.count == 2) {
+                    if (flipCount.obj[0].gameData === flipCount.obj[1].gameData) {
+
+                    }
+                    else {
+                        for (var j = 0; j < flipCount.obj.length; j++) {
+                            flipCount.obj[j].classList.remove('flipped');
+                        }
+                        flipCount.count = 0;
+                    }
+                }
+            };
+            $gt.appendChild(li);
+        }
+    },
+    _setArr() {
+        let MAX_CP = this.MAX_CARD / 2;
+        for (var i = 0; i < MAX_CP; i++) {
+            let randomS = Math.floor(Math.random() * 10 + 1)
+            if (this._imgArr.indexOf(randomS) == -1) {
+                this._imgArr.push(randomS);
+            }
+            else {
+                i--;
+            }
+        }
+        this._imgArr = this._imgArr.concat(this._imgArr);
+        this._imgArr.sort(function () {
+            return Math.random() - .5;
+        })
+        return this._imgArr;
+    }
+}
 function aaaaa() {
     cm.reset(function () {
         for (let i = 0; i < 10; i++) {
             setTimeout(function () {
-                testC.push(new Card(cardsData[Math.floor(Math.random()*10)]));
+                testC.push(new GameCard(cardsData[Math.floor(Math.random()*10)]));
             }, i * 100)
         }
     });

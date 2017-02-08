@@ -177,24 +177,28 @@ function getTransitionend() {
     return traEndName;
 }
 var objCtrl = {
-    fadeOut(obj) {
+    fadeOut(obj, cbk) {
         obj.classList.add('fade-out-animation');
         let callback = () => {
             obj.classList.remove('fade-out-animation');
             obj.style.display = 'none';
             obj.removeEventListener(getAnimationend(), callback);
+            if (typeof cbk === 'function') cbk();
             return;
         };
         obj.addEventListener(getAnimationend(), callback);
         return obj;
     },
-    fadeIn(obj) {
-        obj.style.display = 'block';
+    fadeIn(obj, cbk, isFlex) {
+        if (isFlex) obj.style.display = 'flex';
+        else obj.style.display = 'block';
         obj.classList.add('fade-in-animation');
         let callback = () => {
             obj.classList.remove('fade-in-animation');
-            obj.style.display = 'block';
+            if (isFlex) obj.style.display = 'flex';
+            else obj.style.display = 'block';
             obj.removeEventListener(getAnimationend(), callback);
+            if (typeof cbk === 'function') cbk();
             return;
         };
         obj.addEventListener(getAnimationend(), callback);
