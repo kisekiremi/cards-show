@@ -35,7 +35,11 @@
     <a href="javascript:;" id="return-main-nav"><i class="fa fa-arrow-left"></i></a>
     <section>
         <ul id="card-container">
-            <li class="cards" :class="{neww: card.isNew, dead: card.isDead}" v-for="card in list"  v-on:mousedown.prevent >
+            <li class="cards"
+                :class="{neww: card.isNew, dead: card.isDead}"
+                v-for="card in list"
+                v-on:mousedown.prevent="spread"
+            >
                 <em></em>
                 <img :src="card.img" alt="">
                 <div class="info">

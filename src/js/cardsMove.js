@@ -11,6 +11,10 @@ var cm = {
         let cbkFu = () => {
             if (typeof cbk === 'function') cbk();
         };
+        if (!isSpread) {
+            cbkFu();
+            return;
+        }
         for (let i = 0; i < $cs.length; i++) {
             let obj = $cs[i];
             obj.style.transition = '500ms';
@@ -35,7 +39,7 @@ var cm = {
             for (let i = 0; i < $cs.length; i++) {
                 let obj = $cs[i];
                 let centerCs = Math.floor($cs.length / 2);
-                let rotateZ = s.center ? (i <= centerCs ? (centerCs - i) * -(s.range / 2) / centerCs : (i - centerCs) * (s.range / 2) / centerCs) : (s.range / $cs.length) * i + (s.range / $cs.length);
+                let rotateZ = s.center ? (i <= centerCs ? (centerCs - i) * - (s.range / 2) / centerCs : (i - centerCs) * (s.range / 2) / centerCs) : (s.range / $cs.length) * i + (s.range / $cs.length);
                 let translateX = s.translate || 0;
                 if (s.direction == 'left') {
                     rotateZ = -rotateZ;

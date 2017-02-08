@@ -47,6 +47,27 @@ function initVue() {
         data: {
             list: testC,
             stat: 0
+        },
+        methods: {
+            spread() {
+                if (isSpread) cm.reset();
+                else cm.transform2d(cm.right);
+            }
+        },
+        watch: {
+            list() {
+                setTimeout(function () {
+                    $cardC = $('#card-container');
+                    $cs = $('li', $cardC);
+                    objCtrl.addCard($cs[$cs.length - 1]);
+                }, 0)
+            },
+            stat() {
+                console.log(111);
+                testC = [];
+                console.log(2222);
+                aaaaa();
+            }
         }
     });
 }
@@ -73,13 +94,11 @@ function initEvent() {
         objCtrl.fadeOut(this);
         objCtrl.moveIn($nav);
     };
-    $cardC.addEventListener('click', function (ev) {
-        ev.stopPropagation();
-        if (isSpread) {
-            cm.reset();
-        }
-        else {
-            cm.transform2d(cm.right);
-        }
-    }, false)
+}
+function aaaaa() {
+    for (let i = 0; i < 10; i++) {
+        setTimeout(function () {
+            testC.push(new Card(cardsData[Math.floor(Math.random()*10)]));
+        }, i * 100)
+    }
 }

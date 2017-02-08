@@ -228,5 +228,15 @@ var objCtrl = {
         };
         obj.addEventListener(getAnimationend(), callback);
         return obj;
+    },
+    addCard(obj) {
+        obj.classList.add('add-animation');
+        let callback = () => {
+            obj.classList.remove('add-animation');
+            obj.removeEventListener(getAnimationend(), callback);
+            return;
+        };
+        obj.addEventListener(getAnimationend(), callback);
+        return obj;
     }
 };
