@@ -6,7 +6,7 @@ var $cardC = $('#card-container'),
     $cs = $('li', $cardC);
 class Card {
     constructor(obj) {
-         
+
     }
 }
 
@@ -18,6 +18,7 @@ class GameCard {
         this.isDead = false;
         this.isNew = false;
     }
+
     attackP(obj) {
         console.log(obj.name + '受到' + this.name + '的攻击');
         let randomSeed = Math.random();
@@ -41,12 +42,12 @@ function init() {
     initVue();
     initEvent();
     // setTimeout(function() { //暂时模拟
-        objCtrl.fadeOut($('.loader')[0]);
+    objCtrl.fadeOut($('.loader')[0]);
     // }, 1000)
 }
 function initVue() {
     for (let i = 0; i < 17; i++) {
-        testC.push(new GameCard(cardsData[Math.floor(Math.random()*10)]));
+        testC.push(new GameCard(cardsData[Math.floor(Math.random() * 10)]));
     }
     vm = new Vue({
         el: '#card-container',
@@ -71,7 +72,7 @@ function initVue() {
             },
             stat() {
                 //TODO: 完成stat值切换
-                switch(this.stat) {
+                switch (this.stat) {
                     case 1:
                         objCtrl.fadeOut($('#game-table-1'), function () {
                             $('#section1').style.display = 'flex';
@@ -80,8 +81,8 @@ function initVue() {
                             testC.splice(0, testC.length);//vue.js 中不能通过 = [] 更新视图 要使用这个方法清空
                             for (let i = 0; i < 10; i++) {
                                 setTimeout(function () {
-                                    testC.push(new GameCard(cardsData[Math.floor(Math.random()*11)]));
-                                }, i * 100)
+                                    testC.push(new GameCard(cardsData[Math.floor(Math.random() * 11)]));
+                                }, i * 100 + 600)
                             }
                         });
                         break;
@@ -122,49 +123,68 @@ function initEvent() {
     };
 }
 function initCardGame() {
+    //TODO: 第二次进入时浏览器卡死
     flipGame.init();
 }
 var flipCount = {
     count: 0,
-    obj: []
+    obj: [],
+    canFlip: true
 };
 var flipGame = {
     MAX_CARD: 18,
+    MAX_CARD_LINE: 6,
     _imgArr: [],
     init() {
         this._setArr();
         let $gt = $('#gt');
         for (let i = 0; i < this.MAX_CARD; i++) {
-            let li = document.createElement('li');
-            let frontD = document.createElement('div');
-            let backD = document.createElement('div');
-            frontD.className = 'front';
-            frontD.style.backgroundImage = 'url(./src/img/game/' + this._imgArr[i] + '.png)';
-            backD.className = 'back';
-            li.appendChild(frontD);
-            li.appendChild(backD);
-            li.style.top = Math.floor(i/6) * 140 + 'px';
-            li.style.left = i%6 * 100 + 'px';
-            li.gameData = this._imgArr[i];
-            li.onclick = function() {
-                if (flipCount.count < 2) {
-                    this.classList.add('flipped');
+            setTimeout ( () => {
+                let li = document.createElement('li');
+                let frontD = document.createElement('div');
+                let backD = document.createElement('div');
+                frontD.className = 'front';
+                frontD.style.backgroundImage = 'url(./src/img/game/' + this._imgArr[i] + '.png)';
+                backD.className = 'back';
+                li.appendChild(frontD);
+                li.appendChild(backD);
+                li.style.top = Math.floor(i / this.MAX_CARD_LINE) * 140 + 'px';
+                li.style.left = i % this.MAX_CARD_LINE * 100 + 'px';
+                li.gameData = this._imgArr[i];
+                li.isFlip = false;
+                li.onclick = function () {
+                    if (!flipCount.canFlip || this.isFlip) return;
+                    console.log(flipCount);
                     flipCount.count++;
                     flipCount.obj.push(this);
-                }
-                else if (flipCount.count == 2) {
-                    if (flipCount.obj[0].gameData === flipCount.obj[1].gameData) {
+                    this.classList.add('flipped');
+                    li.isFlip = true;
+                    if (flipCount.count == 2) {
+                        if (flipCount.obj[0].gameData === flipCount.obj[1].gameData) {
+                            for (let j = 0; j < flipCount.obj.length; j++) {
+                                flipCount.obj[j].classList.add('right');
+                            }
+                            flipCount.count = 0;
+                            flipCount.obj = [];
+                        }
+                        else {
+                            flipCount.canFlip = false;
+                            setTimeout(function () {
+                                for (let j = 0; j < flipCount.obj.length; j++) {
+                                    flipCount.obj[j].classList.remove('flipped');
+                                    flipCount.obj[j].isFlip = false;
+                                }
+                                flipCount.canFlip = true;
+                                flipCount.count = 0;
+                                flipCount.obj = [];
+                            }, 600)
+                        }
 
                     }
-                    else {
-                        for (var j = 0; j < flipCount.obj.length; j++) {
-                            flipCount.obj[j].classList.remove('flipped');
-                        }
-                        flipCount.count = 0;
-                    }
-                }
-            };
-            $gt.appendChild(li);
+                };
+                $gt.appendChild(li);
+                objCtrl.fadeIn($('li', $gt)[$('li', $gt).length - 1]);
+            }, 100 * i + 600)
         }
     },
     _setArr() {
@@ -181,16 +201,16 @@ var flipGame = {
         this._imgArr = this._imgArr.concat(this._imgArr);
         this._imgArr.sort(function () {
             return Math.random() - .5;
-        })
+        });
         return this._imgArr;
     }
-}
+};
 function aaaaa() {
     cm.reset(function () {
         for (let i = 0; i < 10; i++) {
             setTimeout(function () {
-                testC.push(new GameCard(cardsData[Math.floor(Math.random()*10)]));
-            }, i * 100)
+                testC.push(new GameCard(cardsData[Math.floor(Math.random() * 10)]));
+            }, i * 100 + 600)
         }
     });
 }
