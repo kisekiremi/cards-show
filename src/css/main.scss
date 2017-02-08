@@ -92,34 +92,40 @@ section {
   box-shadow: rgba(255,255,255,.9) 0px 1px 0px inset, rgba(0,0,0,.03) 0px -1px 0px inset, rgba(0,0,0,.15) 0 15px 10px, rgba(0,0,0,.3) 0 8px 36px;
   z-index: 1002;
   .img {
-    width: 60px;
-    height: 60px;
-    margin: 50px auto 10px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 500px;
+    height: 146px;
+    background: url('../img/common/dialog.png') no-repeat;
+    background-size: cover;
   }
   .title {
+    position: relative;
     font-size: 20px;
     text-align: center;
-    margin: 20px auto 0;
-    padding-bottom: 20px;
+    margin: 60px auto 0;
+    padding: 0 20px 60px;
     border-bottom: 1px solid #c5ccd0;
+    color: #2e2e2e;
+    font-weight: 700;
+    z-index: 1002;
   }
   .desc {
     font-size: 16px;
     text-align: center;
     margin: 50px auto 20px;
+    padding: 0 20px 0;
   }
   .btns {
     text-align: center;
     margin: 50px auto 20px;
     input {
       height: 29px;
+      min-width: 72px;
       line-height: 27px;
       margin: 0 16px 0 0;
-      min-width: 72px;
-      outline: 0;
       padding: 0 8px;
-      cursor: default;
-      font-family: inherit;
       font-size: 11px;
       border-radius: 2px;
       background-image: -webkit-linear-gradient(top,#4d90fe,#357ae8);
@@ -127,7 +133,7 @@ section {
       color: #fff;
     }
     input:hover {
-      background-image: -webkit-linear-gradient(top, #213afe, #46a4e8);
+      background-image: -webkit-linear-gradient(top, #4453fe, #46a4e8);
     }
   }
 }
