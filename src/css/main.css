@@ -168,6 +168,12 @@ section {
 .add-animation {
   animation: addCard 1s; }
 
+.next-animation {
+  animation: nextCard 1s; }
+
+.prev-animation {
+  animation: prevCard 1s; }
+
 @keyframes fadeIn {
   from {
     opacity: 0; }
@@ -184,6 +190,22 @@ section {
     transform: translate(150px, 150px) scale(1.5); }
   to {
     opacity: 1; } }
+@keyframes nextCard {
+  from {
+    transform: none; }
+  50% {
+    transform: translate(150px) rotate(6deg); }
+  to {
+    transform: none;
+    z-index: -1; } }
+@keyframes prevCard {
+  from {
+    transform: none; }
+  50% {
+    transform: translate(-150px) rotate(-6deg); }
+  to {
+    transform: none;
+    z-index: 10; } }
 #card-container {
   position: relative;
   width: 130px;

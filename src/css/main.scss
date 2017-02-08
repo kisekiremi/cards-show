@@ -195,6 +195,12 @@ section {
 .add-animation {
   animation: addCard 1s;
 }
+.next-animation {
+  animation: nextCard 1s;
+}
+.prev-animation {
+  animation: prevCard 1s;
+}
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -220,6 +226,31 @@ section {
     opacity: 1;
   }
 }
+@keyframes nextCard {
+  from {
+    transform: none;
+  }
+  50% {
+    transform: translate(150px) rotate(6deg);
+  }
+  to {
+    transform: none;
+    z-index: -1;
+  }
+}
+@keyframes prevCard {
+  from {
+    transform: none;
+  }
+  50% {
+    transform: translate(-150px) rotate(-6deg);
+  }
+  to {
+    transform: none;
+    z-index: 10;
+  }
+}
+
 
 //130 * 220
 #card-container {

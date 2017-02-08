@@ -5,7 +5,7 @@ var lastOrigin = '50% 90%',
     isSpread = false;
 var cm = {
     reset(cbk) {
-        $cardC = $('#card-container');                                                                      
+        $cardC = $('#card-container');
         $cs = $('li', $cardC);
         let count = 0;
         let cbkFu = () => {
@@ -57,6 +57,32 @@ var cm = {
                 };
                 obj.addEventListener(getTransitionend(), callback);
             }
+        });
+    },
+    nextCard() {
+        this.reset(function () {
+            let obj = $cs[$cs.length - 1];
+            obj.classList.add('next-animation');
+            let callback = () => {
+                obj.classList.remove('next-animation');
+                $cardC.insertBefore(obj, $cardC.children[0]);
+                obj.removeEventListener(getAnimationend(), callback);
+                return obj;
+            };
+            obj.addEventListener(getAnimationend(), callback);
+        });
+    },
+    prevCard() {
+        this.reset(function () {
+            let obj = $cs[0];
+            obj.classList.add('prev-animation');
+            let callback = () => {
+                obj.classList.remove('prev-animation');
+                $cardC.appendChild(obj);
+                obj.removeEventListener(getAnimationend(), callback);
+                return obj;
+            };
+            obj.addEventListener(getAnimationend(), callback);
         });
     },
     defaultSettings: {
