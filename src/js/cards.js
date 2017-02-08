@@ -63,9 +63,7 @@ function initVue() {
                 }, 0)
             },
             stat() {
-                console.log(111);
-                testC = [];
-                console.log(2222);
+                testC.splice(0, testC.length); //vue.js 中不能通过 = [] 更新视图 要使用这个方法清空
                 aaaaa();
             }
         }
@@ -96,9 +94,11 @@ function initEvent() {
     };
 }
 function aaaaa() {
-    for (let i = 0; i < 10; i++) {
-        setTimeout(function () {
-            testC.push(new Card(cardsData[Math.floor(Math.random()*10)]));
-        }, i * 100)
-    }
+    cm.reset(function () {
+        for (let i = 0; i < 10; i++) {
+            setTimeout(function () {
+                testC.push(new Card(cardsData[Math.floor(Math.random()*10)]));
+            }, i * 100)
+        }
+    });
 }

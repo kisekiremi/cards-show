@@ -5,7 +5,7 @@ var lastOrigin = '50% 90%',
     isSpread = false;
 var cm = {
     reset(cbk) {
-        $cardC = $('#card-container');
+        $cardC = $('#card-container');                                                                      
         $cs = $('li', $cardC);
         let count = 0;
         let cbkFu = () => {
