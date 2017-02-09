@@ -38,7 +38,7 @@ let vm = null,
     testC = [],
     lastSection = $('#section1');
 
-init();
+window.onload = init;
 function init() {
     initVue();
     initEvent();
@@ -78,6 +78,7 @@ function initVue() {
                         objCtrl.fadeOut(lastSection, function () {
                             $('#section1').style.display = 'flex';
                             lastSection = $('#section1');
+                            changeBackground(0);
                         });
                         // $cardC.innerHTML = '';
                         testC.splice(0, testC.length);//vue.js 中不能通过 = [] 更新视图 要使用这个方法清空
@@ -91,6 +92,7 @@ function initVue() {
                         objCtrl.fadeOut(lastSection, function () {
                             $('#section2').style.display = 'flex';
                             lastSection = $('#section2');
+                            changeBackground(1);
                         });
                         initS2Event();
                         break;
@@ -240,4 +242,20 @@ function initS2Event() {
             }
         };
     }
+}
+function changeBackground(no) {
+    let $backgrounds = $('img', $('.background')[0]);
+    for (let i = 0; i < $backgrounds.length; i++) {
+        if (i == no) continue;
+        let obj = $backgrounds[i];
+        obj.className = '';
+        setTimeout(function () {
+            obj.style.display = 'none';
+        }, 1000)
+    }
+    $backgrounds[no].style.display = '';
+    setTimeout(function () {
+        $backgrounds[no].className = 'showIn';
+    }, 1000)
+
 }
