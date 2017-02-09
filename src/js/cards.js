@@ -100,6 +100,7 @@ function initVue() {
                         objCtrl.fadeOut(lastSection, function () {
                             $('#game-table-1').style.display = 'flex';
                             lastSection = $('#game-table-1');
+                            changeBackground(2);
                         });
                         flipGame.init();
                         break;
