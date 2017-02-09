@@ -35,7 +35,8 @@ class GameCard {
 
 //全局变量区
 let vm = null,
-    testC = [];
+    testC = [],
+    lastSection = $('#section1');
 
 init();
 function init() {
@@ -74,23 +75,31 @@ function initVue() {
                 //TODO: 完成stat值切换
                 switch (this.stat) {
                     case 1:
-                        objCtrl.fadeOut($('#game-table-1'), function () {
+                        objCtrl.fadeOut(lastSection, function () {
                             $('#section1').style.display = 'flex';
+                            lastSection = $('#section1');
                         });
-                        cm.reset(function () {
-                            testC.splice(0, testC.length);//vue.js 中不能通过 = [] 更新视图 要使用这个方法清空
-                            for (let i = 0; i < 10; i++) {
-                                setTimeout(function () {
-                                    testC.push(new GameCard(cardsData[Math.floor(Math.random() * 11)]));
-                                }, i * 100 + 600)
-                            }
+                        // $cardC.innerHTML = '';
+                        testC.splice(0, testC.length);//vue.js 中不能通过 = [] 更新视图 要使用这个方法清空
+                        for (let i = 0; i < 10; i++) {
+                            setTimeout(function () {
+                                testC.push(new GameCard(cardsData[Math.floor(Math.random() * 11)]));
+                            }, i * 100 + 600)
+                        }
+                        break;
+                    case 2:
+                        objCtrl.fadeOut(lastSection, function () {
+                            $('#section2').style.display = 'flex';
+                            lastSection = $('#section2');
                         });
+                        initS2Event();
                         break;
                     case 4:
-                        objCtrl.fadeOut($('#section1'), function () {
+                        objCtrl.fadeOut(lastSection, function () {
                             $('#game-table-1').style.display = 'flex';
+                            lastSection = $('#game-table-1');
                         });
-                        initCardGame();
+                        flipGame.init();
                         break;
                 }
 
@@ -122,10 +131,6 @@ function initEvent() {
         objCtrl.moveIn($nav);
     };
 }
-function initCardGame() {
-    //TODO: 第二次进入时浏览器卡死
-    flipGame.init();
-}
 var flipCount = {
     count: 0,
     obj: [],
@@ -138,6 +143,7 @@ var flipGame = {
     init() {
         this._setArr();
         let $gt = $('#gt');
+        $gt.innerHTML = '';
         for (let i = 0; i < this.MAX_CARD; i++) {
             setTimeout ( () => {
                 let li = document.createElement('li');
@@ -154,7 +160,6 @@ var flipGame = {
                 li.isFlip = false;
                 li.onclick = function () {
                     if (!flipCount.canFlip || this.isFlip) return;
-                    console.log(flipCount);
                     flipCount.count++;
                     flipCount.obj.push(this);
                     this.classList.add('flipped');
@@ -188,9 +193,10 @@ var flipGame = {
         }
     },
     _setArr() {
+        this._imgArr = [];
         let MAX_CP = this.MAX_CARD / 2;
         for (var i = 0; i < MAX_CP; i++) {
-            let randomS = Math.floor(Math.random() * 10 + 1)
+            let randomS = Math.floor(Math.random() * 22 + 1)
             if (this._imgArr.indexOf(randomS) == -1) {
                 this._imgArr.push(randomS);
             }
@@ -205,12 +211,33 @@ var flipGame = {
         return this._imgArr;
     }
 };
-function aaaaa() {
-    cm.reset(function () {
-        for (let i = 0; i < 10; i++) {
-            setTimeout(function () {
-                testC.push(new GameCard(cardsData[Math.floor(Math.random() * 10)]));
-            }, i * 100 + 600)
-        }
-    });
+function initS2Event() {
+    let $s2 = $('#s2'),
+        $shows = $('.show-card', $s2),
+        $shadows = $('.shadow', $s2),
+        $items = $('.wrapper', $s2);
+
+    for (let i = 0; i < $items.length; i++) {
+        let obj = $items[i];
+        let shadow = $shadows[i];
+        obj.onmouseenter = function() {
+            obj.onmousemove = function(ev)  {
+                let reP = {
+                    x: ev.clientX - obj.getBoundingClientRect().left,
+                    y: ev.clientY - obj.getBoundingClientRect().top
+                };
+                let rotateY = (obj.clientWidth / 2 - reP.x) / (obj.clientWidth / 2) * 20;
+                let rotateX = (reP.y - obj.clientHeight / 2) / (obj.clientHeight / 2) * 20;
+                let angle = Math.atan2(-(reP.x - obj.clientWidth / 2), -(obj.clientHeight / 2 - reP.y));
+                angle = angle * 180 / Math.PI;
+                obj.style.transform = 'rotateX(' + rotateX + 'deg) rotateY(' + rotateY + 'deg) scale3d(1.08, 1.08, 1.08)';
+                shadow.style.background = 'linear-gradient(' + angle + 'deg, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0) 80%)';
+            };
+            obj.onmouseout = function() {
+                obj.style.transform = 'none';
+                shadow.style.background = '';
+                obj.onmousemove = obj.onmouseout = null;
+            }
+        };
+    }
 }

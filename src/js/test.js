@@ -1,29 +1,6 @@
 /**
  * Created by Moudi on 2017/1/18.
  */
-var as = document.getElementsByTagName('a');
-var nav = document.getElementsByTagName('nav')[0];
-var section = document.getElementsByTagName('section')[0];
-for (var i = 0; i < as.length; i++) {
-    let obj = as[i];
-    obj.onclick = function () {
-        // nav.style.flex = 0;
-        this.style.animation = 'nav-active-out 1.5s';
-        for (var j = 0; j < as.length; j++) {
-            let obj = as[j];
-            if (obj !== this) {
-                ~function (obj) {
-                    setTimeout(function () {
-                        obj.style.animation = 'nav-out 1.5s';
-                    },1000)
-                }(obj)
-            }
-        }
-    }
-}
-
-
-
 //雪花
 var snowcanvas;
 window.onload = function(){
@@ -125,4 +102,14 @@ window.onload = function(){
     }
     var snow = new SnowFall();
     snow.start();
+}
+
+function aaaaa() {
+    cm.reset(function () {
+        for (let i = 0; i < 10; i++) {
+            setTimeout(function () {
+                testC.push(new GameCard(cardsData[Math.floor(Math.random() * 10)]));
+            }, i * 100 + 600)
+        }
+    });
 }
