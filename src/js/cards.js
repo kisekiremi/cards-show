@@ -36,10 +36,15 @@ class GameCard {
 //全局变量区
 let vm = null,
     testC = [],
-    lastSection = $('#section1');
+    lastSection = $('#section0');
 
 window.onload = init;
 function init() {
+    $('#section0').style.display = 'flex';
+    Dot("dot", {
+        cW:1400,
+        cH:700
+    });
     initVue();
     initEvent();
     // setTimeout(function() { //暂时模拟
@@ -47,9 +52,6 @@ function init() {
     // }, 1000)
 }
 function initVue() {
-    for (let i = 0; i < 17; i++) {
-        testC.push(new GameCard(cardsData[Math.floor(Math.random() * 10)]));
-    }
     vm = new Vue({
         el: '#card-container',
         data: {
@@ -74,6 +76,13 @@ function initVue() {
             stat() {
                 //TODO: 完成stat值切换
                 switch (this.stat) {
+                    case 0:
+                        objCtrl.fadeOut(lastSection, function () {
+                            $('#section0').style.display = 'flex';
+                            lastSection = $('#section0');
+                            changeBackground(3);
+                        });
+                        break;
                     case 1:
                         objCtrl.fadeOut(lastSection, function () {
                             $('#section1').style.display = 'flex';
@@ -82,10 +91,10 @@ function initVue() {
                         });
                         // $cardC.innerHTML = '';
                         testC.splice(0, testC.length);//vue.js 中不能通过 = [] 更新视图 要使用这个方法清空
-                        for (let i = 0; i < 10; i++) {
+                        for (let i = 0; i < 17; i++) {
                             setTimeout(function () {
                                 testC.push(new GameCard(cardsData[Math.floor(Math.random() * 11)]));
-                            }, i * 100 + 600)
+                            }, i * 200 + 600)
                         }
                         break;
                     case 2:
@@ -245,7 +254,7 @@ function initS2Event() {
     }
 }
 function changeBackground(no) {
-    let $backgrounds = $('img', $('.background')[0]);
+    let $backgrounds = $('.background')[0].children;
     for (let i = 0; i < $backgrounds.length; i++) {
         if (i == no) continue;
         let obj = $backgrounds[i];
