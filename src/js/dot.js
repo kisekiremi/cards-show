@@ -24,7 +24,6 @@ class Practicle {
         this.vy = 0;
         this.radius = radius;
         this.color = color;
-        this.lineCount = 0;
     }
     draw(ctx) {
         ctx.save();
@@ -76,8 +75,8 @@ class Practicle {
 
 var ctxCtrl = {
     init(selector) {
-        canvas = document.getElementById(selector),
-            ctx = canvas.getContext('2d');
+        canvas = document.getElementById(selector);
+        ctx = canvas.getContext('2d');
         W = options.cW;
         H = options.cH;
         canvas.width = options.cW;
@@ -99,8 +98,8 @@ var ctxCtrl = {
             let oDot = new Practicle(options.dotColor, options.radDot);
             oDot.x = parseInt(Math.random() * W.toFixed(1));
             oDot.y = parseInt(Math.random() * H.toFixed(1));
-            oDot.vx = Math.random() * (options.vxRange) - options.vxRange / 2;
-            oDot.vy = Math.random() * (options.vyRange) - options.vyRange / 2;
+            oDot.vx = Math.random() * options.vxRange;
+            oDot.vy = Math.random() * options.vyRange;
             dots.push(oDot);
         }
     },
@@ -123,4 +122,4 @@ var ctxCtrl = {
 window.onresize = function () {
     canvas.width = W = window.innerWidth;
     canvas.height = H = window.innerHeight;
-}
+};
