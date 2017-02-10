@@ -1,6 +1,7 @@
 /**
  * Created by Moudi on 2017/1/6.
  */
+//TODO: 重要！ 解决闪动问题
 "use strict";
 var $cardC = $('#card-container'),
     $cs = $('li', $cardC);
@@ -71,10 +72,10 @@ function initVue() {
                 }, 0)
             },
             stat() {
-                //TODO: 完成stat值切换
                 switch (this.stat) {
                     case 0:
                         objCtrl.fadeOut(lastSection, function () {
+                            reset();
                             $('#section0').style.display = 'flex';
                             lastSection = $('#section0');
                             changeBackground(3);
@@ -82,33 +83,44 @@ function initVue() {
                         break;
                     case 1:
                         objCtrl.fadeOut(lastSection, function () {
+                            reset();
                             $('#section1').style.display = 'flex';
                             lastSection = $('#section1');
-                            changeBackground(0);
+                            changeBackground(0, function () {
+                                for (let i = 0; i < 17; i++) {
+                                    setTimeout(function () {
+                                        testC.push(new GameCard(cardsData[Math.floor(Math.random() * 11)]));
+                                    }, i * 130 + 600)
+                                }
+                            });
                         });
-                        // $cardC.innerHTML = '';
-                        testC.splice(0, testC.length);//vue.js 中不能通过 = [] 更新视图 要使用这个方法清空
-                        for (let i = 0; i < 17; i++) {
-                            setTimeout(function () {
-                                testC.push(new GameCard(cardsData[Math.floor(Math.random() * 11)]));
-                            }, i * 130 + 600)
-                        }
                         break;
                     case 2:
                         objCtrl.fadeOut(lastSection, function () {
+                            reset();
                             $('#section2').style.display = 'flex';
                             lastSection = $('#section2');
-                            changeBackground(1);
+                            changeBackground(1, function () {
+                                $('#section2').classList.add('ready');
+                                let arrow = $('img', $('.touch')[0])[1];
+                                function callback() {
+                                    $('#section2').classList.add('ready-1');
+                                    arrow.removeEventListener(getAnimationend(), callback);
+                                    initS2Event();
+                                }
+                                arrow.addEventListener(getAnimationend(), callback);
+                            });
                         });
-                        initS2Event();
                         break;
                     case 4:
                         objCtrl.fadeOut(lastSection, function () {
+                            reset();
                             $('#game-table-1').style.display = 'flex';
                             lastSection = $('#game-table-1');
-                            changeBackground(2);
+                            changeBackground(2, function () {
+                                flipGame.init();
+                            });
                         });
-                        flipGame.init();
                         break;
                 }
 
@@ -198,7 +210,7 @@ var flipGame = {
                 };
                 $gt.appendChild(li);
                 objCtrl.fadeIn($('li', $gt)[$('li', $gt).length - 1]);
-            }, 100 * i + 600)
+            }, 100 * i)
         }
     },
     _setArr() {
@@ -221,14 +233,48 @@ var flipGame = {
     }
 };
 function initS2Event() {
-    let $s2 = $('#s2'),
-        $shows = $('.show-card', $s2),
+    var $book = $('.book')[0];
+
+    $book.onclick = function () {
+        $('#section2').classList.add('gacha');
+        $('.background')[0].children[1].classList.add('brightness');
+        let arrow = $('img', $('.touch')[0])[1];
+        function callback() {
+            $('#s2').style.display = 'block';
+        }
+        arrow.addEventListener(getAnimationend(), callback);
+    }
+
+    var $s2 = $('#s2'),
         $shadows = $('.shadow', $s2),
         $items = $('.wrapper', $s2);
-
     for (let i = 0; i < $items.length; i++) {
         let obj = $items[i];
         let shadow = $shadows[i];
+        obj.addEventListener('mouseenter', function (ev) {
+            ev.stopPropagation();
+            var moveFn = function (ev) {
+                ev.stopPropagation();
+                let reP = {
+                    x: ev.clientX - obj.getBoundingClientRect().left,
+                    y: ev.clientY - obj.getBoundingClientRect().top
+                };
+                let rotateY = (obj.clientWidth / 2 - reP.x) / (obj.clientWidth / 2) * 20;
+                let rotateX = (reP.y - obj.clientHeight / 2) / (obj.clientHeight / 2) * 20;
+                let angle = Math.atan2(-(reP.x - obj.clientWidth / 2), -(obj.clientHeight / 2 - reP.y));
+                angle = angle * 180 / Math.PI;
+                obj.style.transform = 'rotateX(' + rotateX + 'deg) rotateY(' + rotateY + 'deg) scale3d(1.08, 1.08, 1.08)';
+                shadow.style.background = 'linear-gradient(' + angle + 'deg, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0) 80%)';
+            };
+            obj.addEventListener('mousemove', moveFn, true);
+            var outFn = function () {
+                obj.style.transform = 'none';
+                shadow.style.background = '';
+                obj.removeEventListener('mousemove', moveFn);
+                obj.removeEventListener('mouseout', outFn);
+            };
+            obj.addEventListener('mouseout', outFn);
+        }, true);
         obj.onmouseenter = function() {
             obj.onmousemove = function(ev)  {
                 let reP = {
@@ -250,7 +296,7 @@ function initS2Event() {
         };
     }
 }
-function changeBackground(no) {
+function changeBackground(no, cbk) {
     let $backgrounds = $('.background')[0].children;
     for (let i = 0; i < $backgrounds.length; i++) {
         if (i == no) continue;
@@ -263,6 +309,11 @@ function changeBackground(no) {
     $backgrounds[no].style.display = '';
     setTimeout(function () {
         $backgrounds[no].className = 'showIn';
+        if (typeof cbk === 'function') cbk();
     }, 1000)
-
+}
+function reset() {
+    testC.splice(0, testC.length);//vue.js 中不能通过 = [] 更新视图 要使用这个方法清空
+    $('#section2').className = '';
+    $('#gt').innerHTML = '';
 }

@@ -2,7 +2,7 @@
 html {
   width: 100%;
   height: 100%;
-  min-width: 950px;
+  min-width: 960px;
   font-family: Roboto,Arial,sans-serif; }
 
 body {
@@ -26,6 +26,8 @@ body {
     height: 100%;
     opacity: 0;
     transition: 5s transform, 1s opacity; }
+  .background img.brightness {
+    animation: brightness 1.5s linear forwards; }
   .background canvas {
     opacity: 0;
     transition: 5s transform, 1s opacity; }
@@ -319,22 +321,29 @@ section {
   height: 220px; }
 
 #s2 {
-  margin: 80px auto 0; }
-  #s2 .show-card {
-    width: 200px;
-    height: 140px;
-    transform-style: preserve-3d;
-    perspective: 600px; }
-    #s2 .show-card:hover .wrapper {
-      box-shadow: 0 45px 100px rgba(14, 21, 47, 0.4), 0 16px 40px rgba(14, 21, 47, 0.4); }
-    #s2 .show-card .wrapper {
-      width: 100%;
-      height: 100%;
-      background-color: #ff284f;
-      transition: .2s; }
-    #s2 .show-card .shadow {
-      width: 100%;
-      height: 100%; }
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-left: -110px;
+  margin-top: -163px;
+  width: 220px;
+  height: 326px;
+  transform-style: preserve-3d;
+  perspective: 600px; }
+  #s2:hover .wrapper {
+    box-shadow: 0 45px 100px rgba(14, 21, 47, 0.4), 0 16px 40px rgba(14, 21, 47, 0.4); }
+  #s2 .wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%; }
+  #s2 .shadow {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+    border-radius: 10; }
 
 #gt {
   position: relative;
@@ -500,5 +509,194 @@ section {
     box-shadow: 0 0px 2px 1px blue, inset 0 0 2px 1px gray; }
   100% {
     box-shadow: 0 0px 22px 2px blue, inset 0 0 2px 1px gray; } }
+.gacha-bg,
+.gacha-ft {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%; }
+
+.bling {
+  display: none; }
+  .bling .bling-1 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url("../img/gacha/pic_gacha_lighting_01.png") no-repeat center center;
+    background-size: contain; }
+  .bling .bling-2 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url("../img/gacha/pic_gacha_lighting_02.png") no-repeat center center;
+    background-size: contain; }
+
+.effect {
+  display: none; }
+  .effect .effect-1 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url("../img/gacha/effect_1.png") no-repeat center center;
+    background-size: contain; }
+  .effect .effect-2 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url("../img/gacha/effect_2.png") no-repeat center center;
+    background-size: contain; }
+
+.touch {
+  position: absolute;
+  left: 10%;
+  top: 10%;
+  right: 10%;
+  bottom: 10%; }
+  .touch .book {
+    position: absolute;
+    top: 10%;
+    left: 10%;
+    right: 10%;
+    bottom: 10%;
+    background: url("../img/gacha/scout_book.png") no-repeat center center;
+    background-size: contain;
+    opacity: 0; }
+  .touch img:nth-of-type(1) {
+    position: absolute;
+    top: -3%;
+    left: 12%;
+    opacity: 0; }
+  .touch img:nth-of-type(2) {
+    position: absolute;
+    top: 6%;
+    left: 23%;
+    opacity: 0; }
+
+#section2.ready .effect {
+  display: block; }
+#section2.ready .effect-1 {
+  animation: scale-out .8s .5s linear;
+  opacity: 0; }
+#section2.ready .effect-2 {
+  animation: scale-out .6s .5s linear;
+  opacity: 0; }
+#section2.ready .book {
+  animation: zoom-in .5s linear forwards; }
+#section2.ready .touch img {
+  animation: fade-in .6s 1s linear forwards; }
+
+#section2.ready-1 .book {
+  animation: float 3s linear infinite; }
+#section2.ready-1 .touch img:nth-of-type(2) {
+  animation: move-rigth-down 1s ease-in-out infinite; }
+
+#section2.gacha .book {
+  animation: zoom-out .4s linear forwards; }
+#section2.gacha .touch img,
+#section2.gacha .touch img:nth-of-type(2) {
+  animation: fade-out .3s .2s linear forwards; }
+#section2.gacha .bling {
+  display: block; }
+#section2.gacha .bling-1 {
+  opacity: 0;
+  animation: blink-1 2s 2s linear infinite; }
+#section2.gacha .bling-2 {
+  opacity: 0;
+  animation: blink-2 2s 2.5s linear infinite; }
+
+@keyframes brightness {
+  from {
+    -webkit-filter: brightness(1);
+    filter: brightness(1); }
+  75% {
+    -webkit-filter: brightness(100);
+    filter: brightness(100); }
+  to {
+    -webkit-filter: brightness(0.5);
+    filter: brightness(0.5); } }
+@keyframes blink-1 {
+  from {
+    opacity: .5; }
+  40% {
+    opacity: 1;
+    transform: rotate(-144deg) scale(1.8); }
+  80% {
+    opacity: .1; }
+  to {
+    transform: rotate(-360deg) scale(1); } }
+@keyframes blink-2 {
+  from {
+    opacity: .5; }
+  40% {
+    opacity: 1;
+    transform: rotate(144deg) scale(1.9); }
+  80% {
+    opacity: .4; }
+  to {
+    transform: rotate(360deg) scale(1); } }
+@keyframes move-rigth-down {
+  from {
+    opacity: 1;
+    transform: translate(0, 0); }
+  70% {
+    opacity: 1;
+    transform: translate(10px, 10px); }
+  to {
+    opacity: 1;
+    transform: translate(0, 0); } }
+@keyframes float {
+  from {
+    opacity: 1;
+    transform: translateY(0); }
+  70% {
+    opacity: 1;
+    transform: translateY(-10px); }
+  to {
+    opacity: 1;
+    transform: translateY(0); } }
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: scale(0.1); }
+  80% {
+    transform: scale(1.2); }
+  to {
+    opacity: 1; } }
+@keyframes fade-out {
+  from {
+    opacity: 1; }
+  80% {
+    transform: scale(1.2); }
+  to {
+    opacity: 0;
+    transform: scale(0.1); } }
+@keyframes scale-out {
+  from {
+    opacity: 1;
+    transform: scale(0.1); }
+  to {
+    opacity: 0;
+    transform: scale(10); } }
+@keyframes zoom-in {
+  from {
+    opacity: 0;
+    transform: scale(4); }
+  to {
+    opacity: 1; } }
+@keyframes zoom-out {
+  from {
+    opacity: 1; }
+  to {
+    opacity: 0;
+    transform: scale(4); } }
 
 /*# sourceMappingURL=main.css.map */
