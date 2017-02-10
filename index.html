@@ -48,22 +48,13 @@
     </section>
     <section id="section1">
         <ul id="card-container">
-            <li class="cards"
-                :class="{neww: card.isNew, dead: card.isDead}"
-                v-for="card in list"
-                v-on:mousedown.prevent="spread"
-            >
+            <li class="cards" v-for="card in list" v-on:mousedown.prevent="spread">
                 <em></em>
                 <img :src="card.img" alt="">
                 <div class="info">
                     <h4>{{ card.name }}</h4>
-                    <p v-show="stat == 3">{{ card.des }}</p>
+                    <p>展示卡牌</p>
                 </div>
-                <div class="property" v-show="stat == 3">
-                    <i class="attack">{{ card.attack }}</i>
-                    <i class="defense"><span>{{ card.health }}</span></i>
-                </div>
-                <div class="backface" v-show="stat == 3"></div>
             </li>
         </ul>
     </section>
@@ -85,16 +76,24 @@
                 <img src="./src/img/gacha/arrow.png" alt="">
             </div>
             <ul id="s2">
-                <li class="wrapper cards">
+                <li class="wrapper cards"
+                    :class="{
+                            neww: card.isNew,
+                            dead: card.isDead,
+                            r: card.rarity.r,
+                            sr: card.rarity.sr,
+                            ssr: card.rarity.ssr
+                    }"
+                    v-for="card in list">
                     <em></em>
-                    <img src="./src/img/sr-1.jpg" alt="">
+                    <img :src="card.img" alt="">
                     <div class="info">
-                        <h4>测试</h4>
-                        <p>测试测试测试</p>
+                        <h4>{{ card.name }}</h4>
+                        <p>{{ card.des }}</p>
                     </div>
                     <div class="property">
-                        <i class="attack">9999</i>
-                        <i class="defense"><span>999</span></i>
+                        <i class="attack">{{ card.attack }}</i>
+                        <i class="defense"><span>{{ card.defense }}</span></i>
                     </div>
                     <div class="shadow"></div>
                 </li>
