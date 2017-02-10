@@ -233,18 +233,32 @@ var flipGame = {
     }
 };
 function initS2Event() {
-    var $book = $('.book')[0];
+    let $book = $('.book')[0],
+        $showCards = $('.wrapper', $('#s2')),
+        showN = 0;
 
     $book.onclick = function () {
         $('#section2').classList.add('gacha');
         $('.background')[0].children[1].classList.add('brightness');
         let arrow = $('img', $('.touch')[0])[1];
-        function callback() {
+        let callback = function () {
             $('#s2').style.display = 'block';
+            $('.touch')[0].style.display = 'none';
+            arrow.removeEventListener(getAnimationend(), callback);
+            showCard(showN);
         }
         arrow.addEventListener(getAnimationend(), callback);
+    };
+    function showCard(no) {
+        for (let i = 0; i < $showCards.length; i++) {
+            let obj = $showCards[i];
+            $showCards[i].classList.remove('show-card');
+            obj.style.display = '';
+        }
+        $showCards[no].classList.add('show-card');
+        $showCards[no].style.display = 'block';
     }
-
+    //卡牌3d效果
     var $s2 = $('#s2'),
         $shadows = $('.shadow', $s2),
         $items = $('.wrapper', $s2);
@@ -268,32 +282,14 @@ function initS2Event() {
             };
             obj.addEventListener('mousemove', moveFn, true);
             var outFn = function () {
+                ev.stopPropagation();
                 obj.style.transform = 'none';
                 shadow.style.background = '';
                 obj.removeEventListener('mousemove', moveFn);
                 obj.removeEventListener('mouseout', outFn);
             };
-            obj.addEventListener('mouseout', outFn);
+            obj.addEventListener('mouseout', outFn, true);
         }, true);
-        obj.onmouseenter = function() {
-            obj.onmousemove = function(ev)  {
-                let reP = {
-                    x: ev.clientX - obj.getBoundingClientRect().left,
-                    y: ev.clientY - obj.getBoundingClientRect().top
-                };
-                let rotateY = (obj.clientWidth / 2 - reP.x) / (obj.clientWidth / 2) * 20;
-                let rotateX = (reP.y - obj.clientHeight / 2) / (obj.clientHeight / 2) * 20;
-                let angle = Math.atan2(-(reP.x - obj.clientWidth / 2), -(obj.clientHeight / 2 - reP.y));
-                angle = angle * 180 / Math.PI;
-                obj.style.transform = 'rotateX(' + rotateX + 'deg) rotateY(' + rotateY + 'deg) scale3d(1.08, 1.08, 1.08)';
-                shadow.style.background = 'linear-gradient(' + angle + 'deg, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0) 80%)';
-            };
-            obj.onmouseout = function() {
-                obj.style.transform = 'none';
-                shadow.style.background = '';
-                obj.onmousemove = obj.onmouseout = null;
-            }
-        };
     }
 }
 function changeBackground(no, cbk) {
@@ -313,7 +309,15 @@ function changeBackground(no, cbk) {
     }, 1000)
 }
 function reset() {
+    let $showCards = $('.wrapper', $('#s2'));
     testC.splice(0, testC.length);//vue.js 中不能通过 = [] 更新视图 要使用这个方法清空
     $('#section2').className = '';
     $('#gt').innerHTML = '';
+    $('.touch')[0].style.display = 'block';
+    $('#s2').style.display = 'none';
+    for (let i = 0; i < $showCards.length; i++) {
+        let obj = $showCards[i];
+        $showCards[i].classList.remove('show-card');
+        obj.style.display = '';
+    }
 }

@@ -333,6 +333,7 @@ section {
   #s2:hover .wrapper {
     box-shadow: 0 45px 100px rgba(14, 21, 47, 0.4), 0 16px 40px rgba(14, 21, 47, 0.4); }
   #s2 .wrapper {
+    display: none;
     position: relative;
     width: 100%;
     height: 100%; }
@@ -343,7 +344,7 @@ section {
     width: 100%;
     height: 100%;
     z-index: 10;
-    border-radius: 10; }
+    border-radius: 10px; }
 
 #gt {
   position: relative;
@@ -569,7 +570,8 @@ section {
     bottom: 10%;
     background: url("../img/gacha/scout_book.png") no-repeat center center;
     background-size: contain;
-    opacity: 0; }
+    opacity: 0;
+    z-index: 11; }
   .touch img:nth-of-type(1) {
     position: absolute;
     top: -3%;
@@ -613,11 +615,31 @@ section {
   opacity: 0;
   animation: blink-2 2s 2.5s linear infinite; }
 
+#s2 .wrapper.show-card {
+  opacity: 0;
+  animation: show-card .8s 1s linear forwards; }
+
+@keyframes show-card {
+  from {
+    -webkit-filter: brightness(0);
+    filter: brightness(0);
+    transform: scale(10);
+    opacity: 0; }
+  80% {
+    -webkit-filter: brightness(0.5);
+    filter: brightness(0.5);
+    transform: scale(1); }
+  90% {
+    transform: scale(1.2); }
+  to {
+    -webkit-filter: brightness(1);
+    filter: brightness(1);
+    opacity: 1; } }
 @keyframes brightness {
   from {
     -webkit-filter: brightness(1);
     filter: brightness(1); }
-  75% {
+  65% {
     -webkit-filter: brightness(100);
     filter: brightness(100); }
   to {
