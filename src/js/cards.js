@@ -41,10 +41,7 @@ let vm = null,
 window.onload = init;
 function init() {
     $('#section0').style.display = 'flex';
-    Dot("dot", {
-        cW:1400,
-        cH:700
-    });
+    ctxCtrl.init('dot');
     initVue();
     initEvent();
     // setTimeout(function() { //暂时模拟
@@ -94,7 +91,7 @@ function initVue() {
                         for (let i = 0; i < 17; i++) {
                             setTimeout(function () {
                                 testC.push(new GameCard(cardsData[Math.floor(Math.random() * 11)]));
-                            }, i * 200 + 600)
+                            }, i * 130 + 600)
                         }
                         break;
                     case 2:
