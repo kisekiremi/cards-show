@@ -47,8 +47,21 @@
         </div>
     </section>
     <section id="section1">
+        <div id="click-navigation">
+            <span class="right" onclick="cm.transform2d(cm.right)">right</span>
+            <span class="left" onclick="cm.transform2d(cm.left)">left</span>
+            <span class="horizontal" onclick="cm.transform2d(cm.horizontalSpread)">horizontalSpread</span>
+            <span class="rspread" onclick="cm.transform2d(cm.rightSpread)">rightSpread</span>
+            <span class="lspread" onclick="cm.transform2d(cm.leftSpread)">leftSpread</span>
+            <span class="rotate2" onclick="cm.transform2d(cm.rotate330)">rotate330</span>
+            <span class="rotate" onclick="cm.transform2d(cm.rotate360)">rotate360</span>
+            <span class="next" onclick="cm.prevCard()"><</span>
+            <span class="prev" onclick="cm.nextCard()">></span>
+            <input type="text" name="" class="addNum" value="" placeholder="添加卡牌的张数"/>
+            <input type="button" name="" class="btn" value="添加" />
+        </div>
         <ul id="card-container">
-            <li class="cards" v-for="card in list" v-on:mousedown.prevent="spread">
+            <li class="cards" v-for="card in list" @mousedown.prevent @click="spread">
                 <em></em>
                 <img :src="card.img" alt="">
                 <div class="info">
@@ -157,19 +170,23 @@
     <div class="dialog-bg"></div>
     <div class="dialog">
         <div class="img"></div>
-        <p class="title">哈哈哈哈哈</p>
-        <p cla7ss="desc">测试测试测试测试测试测试</p>
+        <p class="title">关于本项目</p>
+        <div class="desc">
+            <p style="font-size: 18px">参考开源项目：</p>
+            <p><a href="https://github.com/supperjet/Dot">supperjet/Dot</a></p>
+            <p><a href="https://github.com/Kagami-src/MerusutoChristina">Kagami-src/MerusutoChristina</a></p>
+            <p style="font-size: 18px; margin-top: 10px">非商业使用素材：</p>
+            <p><a href="http://mlk.qijee.com/">梅露可物语</a></p>
+            <p><a href="http://www.beva.com/">贝拉卡片翻翻看</a></p>
+        </div>
         <div class="btns">
             <input type="button" class="btn1" value="确定"/>
         </div>
     </div>
-    <script src="./src/js/vue.js"></script>
+    <script src="./build/js/vue.min.js"></script>
+    <script src="./build/js/polyfill.js"></script>
     <script src="./src/js/cardsData.js"></script>
-    <!--<script src="./build/js/test.js"></script>-->
-    <script src="./src/js/move-0.3.4.js"></script>
-    <script src="./src/js/tool.js"></script>
-    <script src="./src/js/dot.js"></script>
-    <script src="./src/js/cardsMove.js"></script>
-    <script src="./src/js/cards.js"></script>
+    <script src="./build/js/tool.js"></script>
+    <script src="./build/js/card.js"></script>
 </body>
 </html>

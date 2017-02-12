@@ -1,7 +1,7 @@
 /**
  * Created by Moudi on 2017/1/6.
  */
-let cardsData = [
+var cardsData = [
     {
         id: 1,
         name: '骑士',

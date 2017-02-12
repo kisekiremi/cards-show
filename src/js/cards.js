@@ -58,10 +58,16 @@ window.onload = init;
 function init() {
     $('#section0').style.display = 'flex';
     ctxCtrl.init('dot');
+    if (!document.cookie.split('=').some(function (item) {
+            return item == 'isRead'
+        })) {
+        objCtrl.fadeIn($('.dialog-bg')[0]);
+        objCtrl.fadeIn($('.dialog')[0]);
+    }
     initVue();
     initEvent();
     initData();
-    setTimeout(function() {
+    setTimeout(function () {
         objCtrl.fadeOut($('.loader')[0]);
     }, 500)
 }
@@ -114,6 +120,11 @@ function initEvent() {
         $nav = $('nav')[0],
         $mainNav = $('.main-nav')[0],
         $lis = $('li', $mainNav);
+    $('.btn1', $('.dialog')[0])[0].onclick = function () {
+        document.cookie = 'isRead=true';
+        objCtrl.fadeOut($('.dialog-bg')[0]);
+        objCtrl.fadeOut($('.dialog')[0]);
+    };
     for (let i = 0; i < $lis.length; i++) {
         $lis[i].index = i;
     }
@@ -164,11 +175,7 @@ function statSwitch(stat) {
                 $('#section1').style.display = 'flex';
                 lastSection = $('#section1');
                 changeBackground(0, function () {
-                    for (let i = 0; i < 17; i++) {
-                        setTimeout(function () {
-                            showArr.push(new GameCard(cardsData[Math.floor(Math.random() * 16)]));
-                        }, i * 150 + 600)
-                    }
+                    initS1Event();
                 });
             });
             break;
@@ -288,6 +295,36 @@ let flipGame = {
         return this._imgArr;
     }
 };
+function initS1Event() {
+    let $cNav = $('#click-navigation'),
+        $addNum = $('.addNum', $cNav)[0],
+        $btn = $('.btn', $cNav)[0];
+    objCtrl.fadeIn($cNav);
+    for (let i = 0; i < 17; i++) {
+        setTimeout(function () {
+            showArr.push(new GameCard(cardsData[Math.floor(Math.random() * cardsData.length)]));
+        }, i * 150 + 600)
+    }
+    $btn.onclick = function () {
+        let num = parseInt($addNum.value);
+        if (isNaN(num)) {
+            alert('请输入有效数字！');
+        }
+        else if (num > 100) {
+            alert('输入数字过大！请检查');
+        }
+        else {
+            cm.reset(function () {
+                $addNum.value = '';
+                for (let i = 0; i < num; i++) {
+                    setTimeout(function () {
+                        showArr.push(new GameCard(cardsData[Math.floor(Math.random() * cardsData.length)]));
+                    }, i * 150 + 600)
+                }
+            });
+        }
+    }
+}
 function initS2Event() {
     let isMoving = false;
     gacha(gachaArr, 5);
@@ -295,6 +332,7 @@ function initS2Event() {
         $showCards = $('.wrapper', $('#s2')),
         $shadows = $('.shadow', $('#s2'));
     $book.onclick = function () {
+        showN = 0;
         $showCards = $('.wrapper', $('#s2'));
         $shadows = $('.shadow', $('#s2'));
         init3dCard($showCards, $shadows);
@@ -452,12 +490,13 @@ function reset() {
     $('#gt').innerHTML = '';
     $('.touch')[0].style.display = 'block';
     $('#s2').style.display = 'none';
+    $('#s2').innerHTML = '';
+    document.onclick = null;
     for (let i = 0; i < $showCards.length; i++) {
         let obj = $showCards[i];
         $showCards[i].classList.remove('show-card');
         obj.style.display = '';
     }
-    showN = 0;
     gachaArr.splice(0, gachaArr.length);
     $('.attacker-wrapper')[0].style.display = '';
     $('.defender-wrapper')[0].style.display = '';
@@ -471,7 +510,7 @@ function gacha(arr, num) {
         }
         else if (randomSeed >= probability.ssr && randomSeed < probability.sr + probability.ssr) {
             arr.push(new GameCard(rArr[1][Math.floor(Math.random() * rArr[1].length)]));
-    }
+        }
         else if (randomSeed < probability.ssr) {
             arr.push(new GameCard(rArr[2][Math.floor(Math.random() * rArr[2].length)]));
         }
@@ -556,13 +595,13 @@ function attackerRound(onOff) {
                     attackerArr[obj.index].attackP(defenderArr[attackObj.index], attackObj);
                     attackerRound(false);
                     isMoving = true;
-                    lMove(obj, {'left' : oldOffsetPos.x, 'top': oldOffsetPos.y}, 300, 'easeOut', function () {
+                    lMove(obj, {'left': oldOffsetPos.x, 'top': oldOffsetPos.y}, 300, 'easeOut', function () {
                         isMoving = false;
                     });
                 }
                 else {
                     isMoving = true;
-                    lMove(obj, {'left' : oldOffsetPos.x, 'top': oldOffsetPos.y}, 300, 'easeOut', function () {
+                    lMove(obj, {'left': oldOffsetPos.x, 'top': oldOffsetPos.y}, 300, 'easeOut', function () {
                         isMoving = false;
                     });
                 }
@@ -596,7 +635,10 @@ function defenderAi() {
             x: $a.getBoundingClientRect().left,
             y: $a.getBoundingClientRect().top
         };
-    lMove($d, {'top': aPos.y - oldDPos.y + oldDoffsetPos.y, 'left': aPos.x - oldDPos.x + oldDoffsetPos.x}, 200, 'easeIn', function () {
+    lMove($d, {
+        'top': aPos.y - oldDPos.y + oldDoffsetPos.y,
+        'left': aPos.x - oldDPos.x + oldDoffsetPos.x
+    }, 200, 'easeIn', function () {
         defen[randomSeed1].attackP(attac[randomSeed2], $a);
         lMove($d, {'top': oldDoffsetPos.y, 'left': oldDoffsetPos.x}, 200, 'easeOut');
         attackerRound(true);

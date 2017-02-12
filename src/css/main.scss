@@ -3,7 +3,7 @@ html {
   width: 100%;
   height: 100%;
   min-width: 960px;
-  font-family: Roboto,Arial,sans-serif;
+  font-family: Roboto, Arial, sans-serif;
 }
 
 body {
@@ -16,6 +16,7 @@ body {
   overflow: hidden;
   //filter: ;
 }
+
 .background {
   position: fixed;
   top: 0;
@@ -31,7 +32,7 @@ body {
     transition: 5s transform, 1s opacity;
   }
   img.brightness {
-    animation: brightness 1.5s linear forwards;
+    animation: brightness 1.8s linear forwards;
   }
   canvas {
     opacity: 0;
@@ -45,6 +46,7 @@ body {
     opacity: 1;
   }
 }
+
 nav {
   position: relative;
   left: 0;
@@ -57,9 +59,11 @@ nav {
   background-color: rgba(95, 109, 126, 0.77);
   overflow: hidden;
 }
+
 nav.hidden {
   opacity: 0;
 }
+
 #return-main-nav {
   display: none;
   position: fixed;
@@ -74,6 +78,7 @@ nav.hidden {
   background-color: #fff;
   z-index: 999;
 }
+
 .main-nav {
   white-space: nowrap;
   i {
@@ -94,15 +99,18 @@ nav.hidden {
     background-color: rgb(73, 84, 97);
   }
 }
+
 section {
   display: none;
   flex: 4;
   background-color: transparent;
   transition: 1s;
 }
+
 #section0 {
   position: relative;
 }
+
 .title-wrapper {
   position: absolute;
   top: 50%;
@@ -120,6 +128,59 @@ section {
     text-align: center;
   }
 }
+
+
+#click-navigation {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 50%;
+  width: 60%;
+  height: 50px;
+  margin-left: -30%;
+  padding: 30px;
+  background: linear-gradient(to bottom, #e1e0e0, #ffffff);
+  color: #333;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.4);
+  border-radius: 0 0 10px 10px;
+  text-align: center;
+  span {
+    height: 20px;
+    padding: 10px;
+    margin-left: 10px;
+    font-size: 14px;
+    font-weight: bold;
+    transition: .6s;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.4);
+    border-radius: 5px;
+    cursor: pointer;
+    &:hover {
+      background: #808080;
+        box-shadow: 0 1px 4px 3px rgba(0, 0, 0, 0.4);
+    }
+  }
+  .addNum {
+    position: absolute;
+    bottom: 2%;
+    left: 38%;
+    width: 11%;
+    height: 26px;
+    border: 1px solid black;
+    border-radius: 5px;
+    z-index: 10;
+  }
+  .btn {
+    position: absolute;
+    bottom: 2%;
+    left: 51%;
+    width: 30px;
+    height: 26px;
+    border: 1px solid black;
+    border-radius: 5px;
+    z-index: 10;
+  }
+}
+
 .dialog-bg {
   display: none;
   position: fixed;
@@ -131,6 +192,7 @@ section {
   opacity: .75;
   z-index: 1001;
 }
+
 .dialog {
   display: none;
   position: absolute;
@@ -142,7 +204,7 @@ section {
   width: 500px;
   height: 400px;
   background-color: #fafafa;
-  box-shadow: rgba(255,255,255,.9) 0px 1px 0px inset, rgba(0,0,0,.03) 0px -1px 0px inset, rgba(0,0,0,.15) 0 15px 10px, rgba(0,0,0,.3) 0 8px 36px;
+  box-shadow: rgba(255, 255, 255, .9) 0px 1px 0px inset, rgba(0, 0, 0, .03) 0px -1px 0px inset, rgba(0, 0, 0, .15) 0 15px 10px, rgba(0, 0, 0, .3) 0 8px 36px;
   z-index: 1002;
   .img {
     position: absolute;
@@ -167,12 +229,15 @@ section {
   .desc {
     font-size: 16px;
     text-align: center;
-    margin: 50px auto 20px;
+    margin: 20px auto 20px;
     padding: 0 20px 0;
+    a {
+      color: #4d90fe;
+    }
   }
   .btns {
     text-align: center;
-    margin: 50px auto 20px;
+    margin: 10px auto 20px;
     input {
       height: 29px;
       min-width: 72px;
@@ -181,7 +246,7 @@ section {
       padding: 0 8px;
       font-size: 11px;
       border-radius: 2px;
-      background-image: -webkit-linear-gradient(top,#4d90fe,#357ae8);
+      background-image: -webkit-linear-gradient(top, #4d90fe, #357ae8);
       border: 1px solid #2f5bb7;
       color: #fff;
     }
@@ -190,6 +255,7 @@ section {
     }
   }
 }
+
 //加载动画
 .loader {
   position: fixed;
@@ -299,20 +365,25 @@ section {
 }
 
 .fade-in-animation {
-  animation: fadeIn .7s ;
+  animation: fadeIn .7s;
 }
+
 .fade-out-animation {
   animation: fadeOut .7s;
 }
+
 .add-animation {
   animation: addCard 1s;
 }
+
 .next-animation {
   animation: nextCard 1s;
 }
+
 .prev-animation {
   animation: prevCard 1s;
 }
+
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -321,6 +392,7 @@ section {
     opacity: 1;
   }
 }
+
 @keyframes fadeOut {
   from {
     opacity: 1;
@@ -329,6 +401,7 @@ section {
     opacity: 0;
   }
 }
+
 @keyframes addCard {
   from {
     opacity: .1;
@@ -338,6 +411,7 @@ section {
     opacity: 1;
   }
 }
+
 @keyframes nextCard {
   from {
     transform: none;
@@ -350,6 +424,7 @@ section {
     z-index: -1;
   }
 }
+
 @keyframes prevCard {
   from {
     transform: none;
@@ -364,19 +439,13 @@ section {
   }
 }
 
-//130 * 220
 #card-container {
   position: relative;
-  width: 130px;
-  height: 220px;
-  margin: 80px auto 0;
-  //transform-style: preserve-3d;
-  //perspective: 6000px;
+  width: 150px;
+  height: 230px;
+  margin: 160px auto 0;
 }
-#section1 #card-container {
-  width: 130px;
-  height: 220px;
-}
+
 #s2 {
   position: absolute;
   top: 50%;
@@ -408,6 +477,7 @@ section {
     border-radius: 10px;
   }
 }
+
 #game-table-0 {
   .attacker-wrapper {
     position: fixed;
@@ -499,6 +569,7 @@ section {
     }
   }
 }
+
 @keyframes li-show {
   from {
     background-color: rgba(149, 223, 134, 0);
@@ -516,6 +587,7 @@ section {
     background-color: rgba(149, 223, 134, 0);
   }
 }
+
 #gt {
   position: relative;
   width: 50%;
@@ -617,9 +689,11 @@ section {
     font-size: 14px;
   }
 }
+
 .cards.dragging {
   z-index: 99;
 }
+
 .cards.front {
   transform: rotateY(0deg);
 }
@@ -627,6 +701,7 @@ section {
 .cards.back {
   transform: rotateY(180deg) translateZ(1px);
 }
+
 .cards.r {
   box-shadow: 0 0 4px 3px #7b95ff, inset 0 0 2px 1px gray;
 }
@@ -638,6 +713,7 @@ section {
 .cards.ssr {
   box-shadow: 0 0 7px 6px #fec802, inset 0 0 2px 1px gray;
 }
+
 .cards.defense {
   box-shadow: 0 0 6px 5px #ff7365, inset 0 0 2px 1px gray;
 }
@@ -690,9 +766,11 @@ section {
   background-size: contain;
   z-index: 99;
 }
+
 .cards.dead {
   animation: dead-animation 1s forwards;
 }
+
 @keyframes dead-animation {
   from {
 
@@ -707,6 +785,7 @@ section {
     filter: brightness(.5);
   }
 }
+
 .cards.dead em {
   position: absolute;
   top: 0;
@@ -731,7 +810,6 @@ section {
   }
 }
 
-
 //gacha
 .gacha-bg,
 .gacha-ft {
@@ -741,6 +819,7 @@ section {
   width: 100%;
   height: 100%;
 }
+
 .bling {
   display: none;
   .bling-1 {
@@ -762,6 +841,7 @@ section {
     background-size: contain;
   }
 }
+
 .effect {
   display: none;
   .effect-1 {
@@ -783,6 +863,7 @@ section {
     background-size: contain;
   }
 }
+
 .touch {
   position: absolute;
   left: 10%;
@@ -813,6 +894,7 @@ section {
     opacity: 0;
   }
 }
+
 #section2.ready {
   .effect {
     display: block;
@@ -832,6 +914,7 @@ section {
     animation: fade-in .6s 1s linear forwards;
   }
 }
+
 #section2.ready-1 {
   .book {
     animation: float 3s linear infinite;
@@ -840,6 +923,7 @@ section {
     animation: move-rigth-down 1s ease-in-out infinite;
   }
 }
+
 #section2.gacha {
   .book {
     animation: zoom-out .4s linear forwards;
@@ -860,13 +944,16 @@ section {
     animation: blink-2 2s 2.5s linear infinite;
   }
 }
+
 #s2 .wrapper.show-card {
   opacity: 0;
   animation: show-card .8s 1s linear forwards;
 }
+
 #s2 .wrapper.fade-out-card {
   animation: fade-out-card .4s linear forwards;
 }
+
 @keyframes fade-out-card {
   from {
     opacity: 1;
@@ -880,6 +967,7 @@ section {
     transform: scale(0);
   }
 }
+
 @keyframes show-card {
   from {
     -webkit-filter: brightness(0);
@@ -901,6 +989,7 @@ section {
     opacity: 1;
   }
 }
+
 @keyframes brightness {
   from {
     -webkit-filter: brightness(1);
@@ -915,6 +1004,7 @@ section {
     filter: brightness(.5);
   }
 }
+
 @keyframes blink-1 {
   from {
     opacity: .5;
@@ -930,6 +1020,7 @@ section {
     transform: rotate(-360deg) scale(1);
   }
 }
+
 @keyframes blink-2 {
   from {
     opacity: .5;
@@ -960,6 +1051,7 @@ section {
     transform: translate(0, 0);
   }
 }
+
 @keyframes float {
   from {
     opacity: 1;
@@ -974,6 +1066,7 @@ section {
     transform: translateY(0);
   }
 }
+
 @keyframes fade-in {
   from {
     opacity: 0;
@@ -986,6 +1079,7 @@ section {
     opacity: 1;
   }
 }
+
 @keyframes fade-out {
   from {
     opacity: 1;
@@ -998,6 +1092,7 @@ section {
     transform: scale(.1);
   }
 }
+
 @keyframes scale-out {
   from {
     opacity: 1;
@@ -1008,6 +1103,7 @@ section {
     transform: scale(10);
   }
 }
+
 @keyframes zoom-in {
   from {
     opacity: 0;
@@ -1017,6 +1113,7 @@ section {
     opacity: 1;
   }
 }
+
 @keyframes zoom-out {
   from {
     opacity: 1;
