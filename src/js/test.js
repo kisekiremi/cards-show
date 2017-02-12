@@ -108,7 +108,7 @@ function aaaaa() {
     cm.reset(function () {
         for (let i = 0; i < 10; i++) {
             setTimeout(function () {
-                testC.push(new GameCard(cardsData[Math.floor(Math.random() * 10)]));
+                showArr.push(new GameCard(cardsData[Math.floor(Math.random() * 10)]));
             }, i * 100 + 600)
         }
     });

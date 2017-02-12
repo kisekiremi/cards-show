@@ -325,9 +325,9 @@ section {
   top: 50%;
   left: 50%;
   margin-left: -110px;
-  margin-top: -163px;
+  margin-top: -169px;
   width: 220px;
-  height: 326px;
+  height: 338px;
   transform-style: preserve-3d;
   perspective: 600px; }
   #s2 .wrapper {
@@ -345,6 +345,40 @@ section {
     height: 100%;
     z-index: 10;
     border-radius: 10px; }
+
+#game-table-0 .attacker,
+#game-table-0 .defender {
+  position: relative;
+  margin: 0 auto;
+  width: 160px;
+  height: 220px; }
+  #game-table-0 .attacker li:nth-of-type(1),
+  #game-table-0 .defender li:nth-of-type(1) {
+    position: absolute;
+    left: -192px;
+    top: 0; }
+  #game-table-0 .attacker li:nth-of-type(2),
+  #game-table-0 .defender li:nth-of-type(2) {
+    position: absolute;
+    left: 0;
+    top: 0; }
+  #game-table-0 .attacker li:nth-of-type(3),
+  #game-table-0 .defender li:nth-of-type(3) {
+    position: absolute;
+    left: 192px;
+    top: 0; }
+#game-table-0 .attacker-wrapper {
+  position: fixed;
+  bottom: 3%;
+  left: 20%;
+  width: 60%;
+  height: 220px; }
+#game-table-0 .defender-wrapper {
+  position: fixed;
+  top: 3%;
+  left: 20%;
+  width: 60%;
+  height: 220px; }
 
 #gt {
   position: relative;
@@ -413,7 +447,6 @@ section {
     width: 100%;
     height: 100%;
     border-radius: 10px;
-    background: url("../img/backface.jpg");
     transform: rotateY(180deg) translateZ(1px); }
   .cards em {
     display: none; }
@@ -440,13 +473,13 @@ section {
   transform: rotateY(180deg) translateZ(1px); }
 
 .cards.r {
-  box-shadow: 0 0px 2px 1px blue, inset 0 0 2px 1px gray; }
+  box-shadow: 0 0px 4px 3px #7b95ff, inset 0 0 2px 1px gray; }
 
 .cards.sr {
-  box-shadow: 0 0px 3px 1px #e94cff, inset 0 0 2px 1px gray; }
+  box-shadow: 0 0px 6px 3px #e94cff, inset 0 0 2px 1px gray; }
 
 .cards.ssr {
-  box-shadow: 0 0px 4px 3px #fec802, inset 0 0 2px 1px gray; }
+  box-shadow: 0 0px 7px 6px #fec802, inset 0 0 2px 1px gray; }
 
 .property {
   position: absolute;
@@ -458,7 +491,7 @@ section {
   .property .attack {
     position: absolute;
     bottom: 10px;
-    left: 14px;
+    left: 10px;
     z-index: 10;
     display: block;
     width: 80px;
@@ -469,7 +502,7 @@ section {
   .property .defense {
     position: absolute;
     bottom: 10px;
-    right: 40px;
+    right: 0;
     z-index: 10;
     display: block;
     width: 80px;
