@@ -470,6 +470,9 @@ section {
           content: ' ';
         }
       }
+      .num {
+        color: #f44246;
+      }
       &:nth-of-type(1) {
         opacity: 1;
         font-size: 18px;

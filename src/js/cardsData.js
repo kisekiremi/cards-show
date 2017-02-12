@@ -16,9 +16,8 @@ let cardsData = [
         attack: 100,
         defense: 100,
         health: 200,
-        CRI: .42, //暴击率
-        CS: 1.48, //暴击伤害
-        sta: 0 //0 -- normal  1 -- dead
+        CRI: .12, //暴击率
+        CS: 1.48 //暴击伤害
     },
     {
         id: 2,
@@ -31,12 +30,11 @@ let cardsData = [
             sr: false,
             ssr: false
         }, // 1--r   2--sr   3--ssr
-        attack: 170,
+        attack: 124,
         defense: 107,
-        health: 2000,
+        health: 200,
         CRI: .12, //暴击率
-        CS: 1.48, //暴击伤害
-        sta: 0 //0 -- normal  1 -- dead
+        CS: 1.48 //暴击伤害
     },
     {
         id: 3,
@@ -49,12 +47,11 @@ let cardsData = [
             sr: false,
             ssr: false
         }, // 1--r   2--sr   3--ssr
-        attack: 0,
-        defense: 0,
-        health: 0,
-        CRI: 0, //暴击率
-        CS: 0, //暴击伤害
-        sta: 0 //0 -- normal  1 -- dead
+        attack: 115,
+        defense: 70,
+        health: 220,
+        CRI: .8, //暴击率
+        CS: 1.9 //暴击伤害
     },
     {
         id: 4,
@@ -67,12 +64,11 @@ let cardsData = [
             sr: false,
             ssr: false
         }, // 1--r   2--sr   3--ssr
-        attack: 0,
-        defense: 0,
-        health: 0,
-        CRI: 0, //暴击率
-        CS: 0, //暴击伤害
-        sta: 0 //0 -- normal  1 -- dead
+        attack: 124,
+        defense: 107,
+        health: 200,
+        CRI: .48, //暴击率
+        CS: 1.48 //暴击伤害
     },
     {
         id: 5,
@@ -85,12 +81,11 @@ let cardsData = [
             sr: true,
             ssr: false
         }, // 1--r   2--sr   3--ssr
-        attack: 0,
-        defense: 0,
-        health: 0,
-        CRI: 0, //暴击率
-        CS: 0, //暴击伤害
-        sta: 0 //0 -- normal  1 -- dead
+        attack: 290,
+        defense: 150,
+        health: 360,
+        CRI: .5, //暴击率
+        CS: 1.6 //暴击伤害
     },
     {
         id: 6,
@@ -103,12 +98,11 @@ let cardsData = [
             sr: true,
             ssr: false
         }, // 1--r   2--sr   3--ssr
-        attack: 0,
-        defense: 0,
-        health: 0,
-        CRI: 0, //暴击率
-        CS: 0, //暴击伤害
-        sta: 0 //0 -- normal  1 -- dead
+        attack: 310,
+        defense: 160,
+        health: 380,
+        CRI: .5, //暴击率
+        CS: 1.6 //暴击伤害
     },
     {
         id: 7,
@@ -121,12 +115,11 @@ let cardsData = [
             sr: true,
             ssr: false
         }, // 1--r   2--sr   3--ssr
-        attack: 0,
-        defense: 0,
-        health: 0,
-        CRI: 0, //暴击率
-        CS: 0, //暴击伤害
-        sta: 0 //0 -- normal  1 -- dead
+        attack: 310,
+        defense: 150,
+        health: 380,
+        CRI: .52, //暴击率
+        CS: 1.62 //暴击伤害
     },
     {
         id: 8,
@@ -139,12 +132,11 @@ let cardsData = [
             sr: false,
             ssr: true
         }, // 1--r   2--sr   3--ssr
-        attack: 0,
-        defense: 0,
-        health: 0,
-        CRI: 0, //暴击率
-        CS: 0, //暴击伤害
-        sta: 0 //0 -- normal  1 -- dead
+        attack: 410,
+        defense: 300,
+        health: 440,
+        CRI: .6, //暴击率
+        CS: 1.8 //暴击伤害
     },
     {
         id: 9,
@@ -157,12 +149,11 @@ let cardsData = [
             sr: false,
             ssr: true
         }, // 1--r   2--sr   3--ssr
-        attack: 0,
-        defense: 0,
-        health: 0,
-        CRI: 0, //暴击率
-        CS: 0, //暴击伤害
-        sta: 0 //0 -- normal  1 -- dead
+        attack: 390,
+        defense: 350,
+        health: 400,
+        CRI: .7, //暴击率
+        CS: 2.0 //暴击伤害
     },
     {
         id: 10,
@@ -175,12 +166,11 @@ let cardsData = [
             sr: true,
             ssr: false
         }, // 1--r   2--sr   3--ssr
-        attack: 0,
-        defense: 0,
-        health: 0,
-        CRI: 0, //暴击率
-        CS: 0, //暴击伤害
-        sta: 0 //0 -- normal  1 -- dead
+        attack: 330,
+        defense: 180,
+        health: 320,
+        CRI: .5, //暴击率
+        CS: 1.48 //暴击伤害
     },
     {
         id: 11,
@@ -193,12 +183,11 @@ let cardsData = [
             sr: false,
             ssr: false
         }, // 1--r   2--sr   3--ssr
-        attack: 0,
-        defense: 0,
-        health: 0,
-        CRI: 0, //暴击率
-        CS: 0, //暴击伤害
-        sta: 0 //0 -- normal  1 -- dead
+        attack: 140,
+        defense: 100,
+        health: 198,
+        CRI: .44, //暴击率
+        CS: 1.4 //暴击伤害
     },
     {
         id: 12,
@@ -211,12 +200,11 @@ let cardsData = [
             sr: false,
             ssr: false
         }, // 1--r   2--sr   3--ssr
-        attack: 0,
-        defense: 0,
-        health: 0,
-        CRI: 0, //暴击率
-        CS: 0, //暴击伤害
-        sta: 0 //0 -- normal  1 -- dead
+        attack: 135,
+        defense: 120,
+        health: 190,
+        CRI: .48, //暴击率
+        CS: 1.56 //暴击伤害
     },
     {
         id: 13,
@@ -229,12 +217,11 @@ let cardsData = [
             sr: false,
             ssr: false
         }, // 1--r   2--sr   3--ssr
-        attack: 0,
-        defense: 0,
-        health: 0,
-        CRI: 0, //暴击率
-        CS: 0, //暴击伤害
-        sta: 0 //0 -- normal  1 -- dead
+        attack: 148,
+        defense: 120,
+        health: 200,
+        CRI: .48, //暴击率
+        CS: 1.45 //暴击伤害
     },
     {
         id: 14,
@@ -247,12 +234,11 @@ let cardsData = [
             sr: true,
             ssr: false
         }, // 1--r   2--sr   3--ssr
-        attack: 0,
-        defense: 0,
-        health: 0,
-        CRI: 0, //暴击率
-        CS: 0, //暴击伤害
-        sta: 0 //0 -- normal  1 -- dead
+        attack: 310,
+        defense: 190,
+        health: 320,
+        CRI: .5, //暴击率
+        CS: 1.38 //暴击伤害
     },
     {
         id: 15,
@@ -265,12 +251,11 @@ let cardsData = [
             sr: true,
             ssr: false
         }, // 1--r   2--sr   3--ssr
-        attack: 0,
-        defense: 0,
-        health: 0,
-        CRI: 0, //暴击率
-        CS: 0, //暴击伤害
-        sta: 0 //0 -- normal  1 -- dead
+        attack: 330,
+        defense: 280,
+        health: 320,
+        CRI: .5, //暴击率
+        CS: 1.48 //暴击伤害
     },
     {
         id: 16,
@@ -283,11 +268,10 @@ let cardsData = [
             sr: true,
             ssr: false
         }, // 1--r   2--sr   3--ssr
-        attack: 0,
-        defense: 0,
-        health: 0,
-        CRI: 0, //暴击率
-        CS: 0, //暴击伤害
-        sta: 0 //0 -- normal  1 -- dead
+        attack: 350,
+        defense: 130,
+        health: 300,
+        CRI: .5, //暴击率
+        CS: 1.6 //暴击伤害
     }
 ];

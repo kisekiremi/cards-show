@@ -399,6 +399,8 @@ section {
       color: #1c14f4; }
       #game-table-0 .notice li .name:before, #game-table-0 .notice li .name:after {
         content: ' '; }
+    #game-table-0 .notice li .num {
+      color: #f44246; }
     #game-table-0 .notice li:nth-of-type(1) {
       opacity: 1;
       font-size: 18px; }

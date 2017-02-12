@@ -13,9 +13,9 @@ class GameCard {
 
     attackP(obj, ele) {
         let randomSeed = Math.random();
-        let att = this.attack * (randomSeed < this.CRI ? this.CS : 1);
-        let newHealth = obj.health - att * (1 - (obj.defense / (400 + obj.defense)));
-        notice('<span class="name">' + obj.name + '</span>' + '受到' + '<span class="name">' + this.name + '</span>' + '的攻击,造成' + att + '点伤害');
+        let att = parseInt(this.attack * (randomSeed < this.CRI ? this.CS : 1) * (1 - (obj.defense / (400 + obj.defense))));
+        let newHealth = obj.health - att;
+        notice('<span class="name">' + obj.name + '</span>' + '受到' + '<span class="name">' + this.name + '</span>' + '的攻击,造成<span class="num">' + att + '</span>点伤害');
         obj.health = Math.round(newHealth);
         if (obj.health <= 0) {
             obj.health = 0;
