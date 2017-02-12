@@ -1,16 +1,7 @@
 /**
  * Created by Moudi on 2017/1/6.
  */
-//TODO: 重要！ 解决闪动问题
 "use strict";
-let $cardC = $('#card-container'),
-    $cs = $('li', $cardC);
-class Card {
-    constructor(obj) {
-
-    }
-}
-
 class GameCard {
     constructor(obj) {
         for (let k in obj) {
@@ -21,14 +12,15 @@ class GameCard {
     }
 
     attackP(obj, ele) {
-        console.log(obj.name + '受到' + this.name + '的攻击');
         let randomSeed = Math.random();
-        let newHealth = obj.health - (this.attack * (randomSeed < this.CRI ? this.CS : 1)) * (1 - (obj.defense / (400 + obj.defense)));
-
+        let att = this.attack * (randomSeed < this.CRI ? this.CS : 1);
+        let newHealth = obj.health - att * (1 - (obj.defense / (400 + obj.defense)));
+        notice('<span class="name">' + obj.name + '</span>' + '受到' + '<span class="name">' + this.name + '</span>' + '的攻击,造成' + att + '点伤害');
         obj.health = Math.round(newHealth);
         if (obj.health <= 0) {
             obj.health = 0;
             obj.isDead = true;
+            notice('<span class="name">' + obj.name + '</span>' + '已经阵亡。');
         }
         shake(ele, 'left');
         return (randomSeed < this.CRI ? '暴击！' : 'ok');
@@ -36,6 +28,8 @@ class GameCard {
 }
 
 //全局变量区
+let $cardC = $('#card-container'),
+    $cs = $('li', $cardC);
 let vm = null,
     showArr = [],
     gachaArr = [],
@@ -56,7 +50,9 @@ let probability = {
         ssr: .1
     },//r sr ssr
     rArr = [[], [], []];
-let $attackers, $defenders;
+let $attackers, $defenders,
+    defen = [],
+    attac = [];
 
 window.onload = init;
 function init() {
@@ -103,6 +99,13 @@ function initVue() {
         data: {
             aList: attackerArr,
             dList: defenderArr
+        },
+        watch: {
+            aList() {
+                // if ($attackers.length < 3) return;
+                objCtrl.fadeIn($('.attacker-wrapper')[0]);
+                objCtrl.fadeIn($('.defender-wrapper')[0]);
+            }
         }
     })
 }
@@ -150,7 +153,9 @@ function statSwitch(stat) {
                 reset();
                 $('#section0').style.display = 'flex';
                 lastSection = $('#section0');
-                changeBackground(3);
+                changeBackground(3, function () {
+                    $('#dot').style.background = 'linear-gradient(to bottom, #9cc2c9, #8468b8)';
+                });
             });
             break;
         case 1:
@@ -284,6 +289,7 @@ let flipGame = {
     }
 };
 function initS2Event() {
+    let isMoving = false;
     gacha(gachaArr, 5);
     let $book = $('.book')[0],
         $showCards = $('.wrapper', $('#s2')),
@@ -326,14 +332,20 @@ function initS2Event() {
     };
     function showCard(no) {
         $showCards[no].isShow = true;
+        isMoving = true;
         if (no == 0) {
             $showCards[no].classList.add('show-card');
             $showCards[no].style.display = 'block';
+            let showEnd = function () {
+                isMoving = false;
+                $showCards[no].removeEventListener(getAnimationend(), showEnd);
+            };
+            $showCards[no].addEventListener(getAnimationend(), showEnd);
             return;
         }
         let obj = $showCards[no - 1];
         if (obj.isShow) {
-            $showCards[no - 1].classList.remove('show-card');
+            obj.classList.remove('show-card');
             obj.classList.add('fade-out-card');
             obj.isShow = false;
             let callback = function () {
@@ -341,13 +353,15 @@ function initS2Event() {
                 obj.classList.remove('fade-out-card');
                 $showCards[no].classList.add('show-card');
                 $showCards[no].style.display = 'block';
+                let showEnd = function () {
+                    isMoving = false;
+                    $showCards[no].removeEventListener(getAnimationend(), showEnd);
+                };
+                $showCards[no].addEventListener(getAnimationend(), showEnd);
                 obj.removeEventListener(getAnimationend(), callback);
             };
             obj.addEventListener(getAnimationend(), callback);
-            return;
         }
-        $showCards[no].classList.add('show-card');
-        $showCards[no].style.display = 'block';
     }
 
     function showCardList() {
@@ -366,6 +380,7 @@ function initS2Event() {
             let obj = $showCards[i];
             let shadow = $shadows[i];
             obj.addEventListener('mouseenter', function (ev) {
+                if (isMoving) return;
                 ev.stopPropagation();
                 let moveFn = function (ev) {
                     ev.stopPropagation();
@@ -397,13 +412,22 @@ function initS2Event() {
 
 }
 function initG0Event() {
+    document.onmousedown = function (ev) {
+        ev.preventDefault();
+    };
+    $('#dot').style.background = 'linear-gradient(to bottom, rgb(167, 228, 239), rgb(245, 159, 167))';
     attackerArr.splice(0, attackerArr.length);
     defenderArr.splice(0, defenderArr.length);
     gacha(attackerArr, 3);
     gacha(defenderArr, 3);
     $attackers = $('li', $('.attacker')[0]);
     $defenders = $('li', $('.defender')[0]);
-
+    notice('双击屏幕开始游戏');
+    document.ondblclick = function () {
+        notice('游戏开始');
+        attackerRound(true);
+        document.ondblclick = null;
+    }
 }
 function changeBackground(no, cbk) {
     let $backgrounds = $('.background')[0].children;
@@ -423,7 +447,7 @@ function changeBackground(no, cbk) {
 }
 function reset() {
     let $showCards = $('.wrapper', $('#s2'));
-    showArr.splice(0, showArr.length);//vue.js 中不能通过 = [] 更新视图 要使用这个方法清空
+    showArr.splice(0, showArr.length);
     $('#section2').className = '';
     $('#gt').innerHTML = '';
     $('.touch')[0].style.display = 'block';
@@ -433,7 +457,11 @@ function reset() {
         $showCards[i].classList.remove('show-card');
         obj.style.display = '';
     }
+    showN = 0;
     gachaArr.splice(0, gachaArr.length);
+    $('.attacker-wrapper')[0].style.display = '';
+    $('.defender-wrapper')[0].style.display = '';
+    $('.notice')[0].innerHTML = '';
 }
 function gacha(arr, num) {
     for (let i = 0; i < num; i++) {
@@ -449,4 +477,148 @@ function gacha(arr, num) {
         }
     }
     return arr;
+}
+function attackerRound(onOff) {
+    if (checkDead()) return;
+    if (!onOff) {
+        for (let i = 0; i < $attackers.length; i++) {
+            $attackers[i].onmousedown = null;
+        }
+        setTimeout(function () {
+            notice('敌方攻击回合');
+            setTimeout(function () {
+                defenderAi();
+            }, 500)
+        }, 500);
+
+        return;
+    }
+    setTimeout(function () {
+        notice('我方攻击回合');
+    }, 500);
+    let isMoving = false;
+    for (let i = 0; i < $attackers.length; i++) {
+        let obj = $attackers[i],
+            attackObj = null;
+        obj.index = i;
+        obj.onmousedown = function (ev) {
+            if (isMoving) return;
+            if (attackerArr[obj.index].isDead) {
+                return;
+            }
+            ev.preventDefault();
+            let oldPos = obj.getBoundingClientRect(),
+                oldOffsetPos = {
+                    x: obj.offsetLeft,
+                    y: obj.offsetTop
+                },
+                rePos = {
+                    x: ev.clientX - oldPos.left - obj.offsetLeft,
+                    y: ev.clientY - oldPos.top - obj.offsetTop
+                };
+            obj.classList.add('dragging');
+            document.onmousemove = function (ev) {
+                attackObj = null;
+                let movePos = {
+                        x: ev.clientX - oldPos.left,
+                        y: ev.clientY - oldPos.top
+                    },
+                    left = movePos.x - rePos.x,
+                    top = movePos.y - rePos.y;
+                obj.style.left = left + 'px';
+                obj.style.top = top + 'px';
+                for (let j = 0; j < $defenders.length; j++) {
+                    $defenders[j].index = j;
+                }
+                for (let j = 0; j < $defenders.length; j++) {
+                    let obj1 = $defenders[j];
+                    if (mt.mouseCollisionDetection(ev, obj1)) {
+                        if (!defenderArr[obj1.index].isDead) {
+                            obj1.classList.add('defense');
+                        }
+                    }
+                    else {
+                        obj1.classList.remove('defense');
+                    }
+                }
+            };
+            document.onmouseup = function (ev) {
+                for (let j = 0; j < $defenders.length; j++) {
+                    let obj1 = $defenders[j];
+                    if (mt.mouseCollisionDetection(ev, obj1)) {
+                        if (!defenderArr[obj1.index].isDead) {
+                            attackObj = obj1;
+                        }
+                    }
+                }
+                if (attackObj) {
+                    attackObj.classList.remove('defense');
+                    attackerArr[obj.index].attackP(defenderArr[attackObj.index], attackObj);
+                    attackerRound(false);
+                    isMoving = true;
+                    lMove(obj, {'left' : oldOffsetPos.x, 'top': oldOffsetPos.y}, 300, 'easeOut', function () {
+                        isMoving = false;
+                    });
+                }
+                else {
+                    isMoving = true;
+                    lMove(obj, {'left' : oldOffsetPos.x, 'top': oldOffsetPos.y}, 300, 'easeOut', function () {
+                        isMoving = false;
+                    });
+                }
+                obj.classList.remove('dragging');
+                document.onmousemove = document.onmouseup = null;
+            }
+        }
+    }
+}
+function notice(content) {
+    let $notice = $('.notice')[0];
+    let li = document.createElement('li');
+    li.innerHTML = content;
+    $notice.insertBefore(li, $notice.children[0]);
+    $notice.children[0].classList.add('show');
+}
+function defenderAi() {
+    let randomSeed1 = Math.floor(Math.random() * defen.length),
+        randomSeed2 = Math.floor(Math.random() * attac.length),
+        $d = $defenders[defen[randomSeed1].index],
+        $a = $attackers[attac[randomSeed2].index],
+        oldDoffsetPos = {
+            x: $d.offsetLeft,
+            y: $d.offsetTop
+        },
+        oldDPos = {
+            x: $d.getBoundingClientRect().left,
+            y: $d.getBoundingClientRect().top
+        },
+        aPos = {
+            x: $a.getBoundingClientRect().left,
+            y: $a.getBoundingClientRect().top
+        };
+    lMove($d, {'top': aPos.y - oldDPos.y + oldDoffsetPos.y, 'left': aPos.x - oldDPos.x + oldDoffsetPos.x}, 200, 'easeIn', function () {
+        defen[randomSeed1].attackP(attac[randomSeed2], $a);
+        lMove($d, {'top': oldDoffsetPos.y, 'left': oldDoffsetPos.x}, 200, 'easeOut');
+        attackerRound(true);
+    });
+}
+function checkDead() {
+    attac = [];
+    defen = [];
+    for (let i = 0; i < attackerArr.length; i++) {
+        let obj = attackerArr[i];
+        let obj1 = defenderArr[i];
+        obj.index = obj1.index = i;
+        if (!obj.isDead) attac.push(obj);
+        if (!obj1.isDead) defen.push(obj1);
+    }
+    if (attac.length == 0) {
+        notice('游戏结束，防守方获胜！');
+        return true;
+    }
+    if (defen.length == 0) {
+        notice('游戏结束，攻击方获胜！');
+        return true;
+    }
+    return false;
 }

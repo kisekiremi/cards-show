@@ -99,6 +99,10 @@ mt = {
         var pos2 = obj2.getBoundingClientRect();
         return pos1.right < pos2.left || pos1.bottom < pos2.top || pos1.left > pos2.right || pos1.top > pos2.bottom ? false : true;
     },
+    mouseCollisionDetection: function (mouseEvent, obj) {
+        var pos = obj.getBoundingClientRect();
+        return mouseEvent.clientX > pos.left && mouseEvent.clientX < pos.left + pos.width && mouseEvent.clientY < pos.top + pos.height && mouseEvent.clientY > pos.top;
+    },
     /**
      @description: 鼠标滚轮事件
      @augments:    {obj, 绑定鼠标滚轮事件的对象; upFn, 向上滚动事件; downFn, 向下滚动事件；}
@@ -189,14 +193,11 @@ var objCtrl = {
         obj.addEventListener(getAnimationend(), callback);
         return obj;
     },
-    fadeIn(obj, cbk, isFlex) {
-        if (isFlex) obj.style.display = 'flex';
-        else obj.style.display = 'block';
+    fadeIn(obj, cbk) {
+        obj.style.display = 'block';
         obj.classList.add('fade-in-animation');
         let callback = () => {
             obj.classList.remove('fade-in-animation');
-            if (isFlex) obj.style.display = 'flex';
-            else obj.style.display = 'block';
             obj.removeEventListener(getAnimationend(), callback);
             if (typeof cbk === 'function') cbk();
             return;

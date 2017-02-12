@@ -14,8 +14,8 @@ let cardsData = [
             ssr: false
         }, // 1--r   2--sr   3--ssr
         attack: 100,
-        defense: 500,
-        health: 2000,
+        defense: 100,
+        health: 200,
         CRI: .42, //暴击率
         CS: 1.48, //暴击伤害
         sta: 0 //0 -- normal  1 -- dead

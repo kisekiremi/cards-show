@@ -346,6 +346,21 @@ section {
     z-index: 10;
     border-radius: 10px; }
 
+#game-table-0 .attacker-wrapper {
+  position: fixed;
+  bottom: 3%;
+  left: 20%;
+  display: none;
+  width: 60%;
+  height: 220px; }
+#game-table-0 .defender-wrapper {
+  position: fixed;
+  top: 3%;
+  left: 20%;
+  display: none;
+  width: 60%;
+  height: 220px;
+  z-index: -1; }
 #game-table-0 .attacker,
 #game-table-0 .defender {
   position: relative;
@@ -367,19 +382,52 @@ section {
     position: absolute;
     left: 192px;
     top: 0; }
-#game-table-0 .attacker-wrapper {
+#game-table-0 .notice {
   position: fixed;
-  bottom: 3%;
-  left: 20%;
-  width: 60%;
-  height: 220px; }
-#game-table-0 .defender-wrapper {
-  position: fixed;
-  top: 3%;
-  left: 20%;
-  width: 60%;
-  height: 220px; }
+  right: 0;
+  bottom: 0;
+  width: 380px;
+  height: 200px;
+  overflow: hidden; }
+  #game-table-0 .notice li {
+    height: 40px;
+    line-height: 40px;
+    opacity: 0;
+    text-align: center;
+    white-space: nowrap; }
+    #game-table-0 .notice li .name {
+      color: #1c14f4; }
+      #game-table-0 .notice li .name:before, #game-table-0 .notice li .name:after {
+        content: ' '; }
+    #game-table-0 .notice li:nth-of-type(1) {
+      opacity: 1;
+      font-size: 18px; }
+    #game-table-0 .notice li:nth-of-type(2) {
+      opacity: .8;
+      font-size: 16px; }
+    #game-table-0 .notice li:nth-of-type(3) {
+      opacity: .6;
+      font-size: 14px; }
+    #game-table-0 .notice li:nth-of-type(4) {
+      opacity: .4;
+      font-size: 14px; }
+    #game-table-0 .notice li:nth-of-type(5) {
+      opacity: .2;
+      font-size: 14px; }
+  #game-table-0 .notice li.show {
+    animation: li-show 2s; }
 
+@keyframes li-show {
+  from {
+    background-color: rgba(149, 223, 134, 0); }
+  30% {
+    background-color: #95df86; }
+  50% {
+    background-color: rgba(149, 223, 134, 0.5); }
+  80% {
+    background-color: #95df86; }
+  to {
+    background-color: rgba(149, 223, 134, 0); } }
 #gt {
   position: relative;
   width: 50%;
@@ -402,7 +450,7 @@ section {
       position: absolute;
       width: 100%;
       height: 100%;
-      transition: .7s;
+      transition: 1s cubic-bezier(0.27, 0.07, 0.27, 1.55);
       background: url("../img/game/1.png") no-repeat center;
       background-size: 105% 105%;
       transform: rotateY(180deg);
@@ -411,7 +459,7 @@ section {
       position: absolute;
       width: 100%;
       height: 100%;
-      transition: .7s;
+      transition: 1s cubic-bezier(0.27, 0.07, 0.27, 1.55);
       background: url("../img/game/back.png") no-repeat;
       background-size: 100% 100%;
       z-index: 4; }
@@ -466,6 +514,9 @@ section {
     text-indent: 10px;
     font-size: 14px; }
 
+.cards.dragging {
+  z-index: 99; }
+
 .cards.front {
   transform: rotateY(0deg); }
 
@@ -473,13 +524,16 @@ section {
   transform: rotateY(180deg) translateZ(1px); }
 
 .cards.r {
-  box-shadow: 0 0px 4px 3px #7b95ff, inset 0 0 2px 1px gray; }
+  box-shadow: 0 0 4px 3px #7b95ff, inset 0 0 2px 1px gray; }
 
 .cards.sr {
-  box-shadow: 0 0px 6px 3px #e94cff, inset 0 0 2px 1px gray; }
+  box-shadow: 0 0 6px 3px #e94cff, inset 0 0 2px 1px gray; }
 
 .cards.ssr {
-  box-shadow: 0 0px 7px 6px #fec802, inset 0 0 2px 1px gray; }
+  box-shadow: 0 0 7px 6px #fec802, inset 0 0 2px 1px gray; }
+
+.cards.defense {
+  box-shadow: 0 0 6px 5px #ff7365, inset 0 0 2px 1px gray; }
 
 .property {
   position: absolute;
@@ -509,7 +563,7 @@ section {
     height: 30px;
     text-indent: 30px;
     line-height: 30px;
-    background: url("../img/icon/defense.svg") no-repeat; }
+    background: url("../img/icon/icon-health.svg") no-repeat; }
 
 .cards.show {
   animation: cards-bs-r-bling 4s infinite; }
@@ -525,6 +579,17 @@ section {
   background-size: contain;
   z-index: 99; }
 
+.cards.dead {
+  animation: dead-animation 1s forwards; }
+
+@keyframes dead-animation {
+  30% {
+    -webkit-filter: brightness(1.5);
+    filter: brightness(1.5);
+    transform: scale(1.2); }
+  to {
+    -webkit-filter: brightness(0.5);
+    filter: brightness(0.5); } }
 .cards.dead em {
   position: absolute;
   top: 0;
