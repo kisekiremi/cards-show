@@ -582,8 +582,6 @@ function attackerRound(onOff) {
                 }
             };
             document.onmouseup = function (ev) {
-                ev.preventBubble()
-                ev.cancelBubble = true;
                 for (let j = 0; j < $defenders.length; j++) {
                     let obj1 = $defenders[j];
                     if (mt.mouseCollisionDetection(ev, obj1)) {
