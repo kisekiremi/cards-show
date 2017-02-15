@@ -689,7 +689,7 @@ section {
     left: 0;
     right: 0;
     bottom: 0;
-    background: url("../img/gacha/effect_1.png") no-repeat center center;
+    background: url("https://moudicat-data.oss-cn-beijing.aliyuncs.com/cdn/github/cards-show/effect_1.png") no-repeat center center;
     background-size: contain; }
   .effect .effect-2 {
     position: absolute;
@@ -697,7 +697,7 @@ section {
     left: 0;
     right: 0;
     bottom: 0;
-    background: url("../img/gacha/effect_2.png") no-repeat center center;
+    background: url("https://moudicat-data.oss-cn-beijing.aliyuncs.com/cdn/github/cards-show/effect_2.png") no-repeat center center;
     background-size: contain; }
 
 .touch {
@@ -712,7 +712,7 @@ section {
     left: 10%;
     right: 10%;
     bottom: 10%;
-    background: url("../img/gacha/scout_book.png") no-repeat center center;
+    background: url("https://moudicat-data.oss-cn-beijing.aliyuncs.com/cdn/github/cards-show/scout_book.png") no-repeat center center;
     background-size: contain;
     opacity: 0;
     z-index: 11; }
