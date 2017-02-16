@@ -57,6 +57,7 @@ let $attackers, $defenders,
 window.onload = init;
 function init() {
     $('#section0').style.display = 'flex';
+    window.location.hash = 'nav=s0';
     ctxCtrl.init('dot');
     if (!document.cookie.split('=').some(function (item) {
             return item == 'isRead'
@@ -134,7 +135,7 @@ function initEvent() {
                 $lis[i].classList.remove('active');
             }
             ev.target.parentNode.classList.add('active');
-            statSwitch(ev.target.parentNode.index);
+            window.location.hash = 'nav=s' + (ev.target.parentNode.index);
             objCtrl.moveOut($nav);
             objCtrl.fadeIn($goBack);
         }
@@ -157,9 +158,10 @@ function initData() {
         }
     }
 }
-function statSwitch(stat) {
-    switch (stat) {
-        case 0:
+window.onhashchange = function () {
+    let hash = window.location.hash.substring(1).split('=')[1];
+    let actions = {
+        s0() {
             objCtrl.fadeOut(lastSection, function () {
                 reset();
                 $('#section0').style.display = 'flex';
@@ -168,8 +170,8 @@ function statSwitch(stat) {
                     $('#dot').style.background = 'linear-gradient(to bottom, #9cc2c9, #8468b8)';
                 });
             });
-            break;
-        case 1:
+        },
+        s1() {
             objCtrl.fadeOut(lastSection, function () {
                 reset();
                 $('#section1').style.display = 'flex';
@@ -178,8 +180,8 @@ function statSwitch(stat) {
                     initS1Event();
                 });
             });
-            break;
-        case 2:
+        },
+        s2() {
             objCtrl.fadeOut(lastSection, function () {
                 reset();
                 $('#section2').style.display = 'flex';
@@ -187,18 +189,16 @@ function statSwitch(stat) {
                 changeBackground(1, function () {
                     $('#section2').classList.add('ready');
                     let arrow = $('img', $('.touch')[0])[1];
-
                     function callback() {
                         $('#section2').classList.add('ready-1');
                         arrow.removeEventListener(getAnimationend(), callback);
                         initS2Event();
                     }
-
                     arrow.addEventListener(getAnimationend(), callback);
                 });
             });
-            break;
-        case 3:
+        },
+        s3() {
             objCtrl.fadeOut(lastSection, function () {
                 reset();
                 $('#game-table-0').style.display = 'flex';
@@ -207,8 +207,8 @@ function statSwitch(stat) {
                     initG0Event();
                 });
             });
-            break;
-        case 4:
+        },
+        s4() {
             objCtrl.fadeOut(lastSection, function () {
                 reset();
                 $('#game-table-1').style.display = 'flex';
@@ -217,9 +217,14 @@ function statSwitch(stat) {
                     flipGame.init();
                 });
             });
-            break;
+        }
+    };
+    if (typeof actions[hash] !== 'function') {
+        throw ('Invalid action.');
     }
-}
+    return actions[hash]();
+};
+
 let flipGame = {
     MAX_CARD: 18,
     MAX_CARD_LINE: 6,
